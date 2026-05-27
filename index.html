@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Héros de l'Ombre — Ces personnages secondaires qui font les grandes œuvres</title>
+    <meta name="description" content="Chaîne YouTube dédiée aux personnages secondaires du cinéma et des séries. Analyse, passion, cinéphilie.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <script src="app.js" defer></script>
+
+    <style>
+
+    /* ══════════════════════════════════════════════
+       RESET & VARIABLES
+    ══════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+        --red:       #e84c3d;
+        --red-dk:    #c0392b;
+        --black:     #1c1c1c;
+        --dark:      #111;
+        --dark-2:    #181818;
+        --grey:      #777;
+        --grey-lt:   #bbb;
+        --cream:     #f0ede7;
+        --white:     #fff;
+        --border:    #e3e0db;
+        --section-p: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+    }
+
+    /* ══════════════════════════════════════════════
+       ACCESSIBILITÉ
+    ══════════════════════════════════════════════ */
+    .skip-link {
+        position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden;
+    }
+    .skip-link:focus {
+        position: fixed; left: 50%; top: 0; transform: translateX(-50%);
+        background: var(--red); color: #fff; z-index: 9999;
+        padding: .55rem 1.8rem; font-size: .8rem; font-weight: 700;
+        letter-spacing: .1em; width: auto; height: auto; overflow: visible;
+    }
+    :focus { outline: none; }
+    :focus-visible { outline: 2px solid var(--red); outline-offset: 3px; border-radius: 2px; }
+
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-duration: .01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: .01ms !important;
+        }
+        .reveal    { opacity: 1; transform: none; }
+        .hero-img  { transform: translateY(-182px) !important; }
+    }
+
+    /* ══════════════════════════════════════════════
+       BASE
+    ══════════════════════════════════════════════ */
+    html { scroll-behavior: smooth; }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        font-size: 15px;
+        color: var(--black);
+        background: var(--white);
+        line-height: 1.65;
+    }
+
+    img    { display: block; max-width: 100%; }
+    a      { color: inherit; text-decoration: none; }
+    ul     { list-style: none; }
+    button { background: none; border: none; padding: 0; cursor: pointer; font-family: inherit; color: inherit; }
+
+    /* ══════════════════════════════════════════════
+       ANIMATIONS
+    ══════════════════════════════════════════════ */
+    @keyframes fadeUp  { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+    @keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes bounce  { 0%, 100% { transform: translateY(0); } 55% { transform: translateY(8px); } }
+    @keyframes barGrow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+    /* ══════════════════════════════════════════════
+       SCROLL REVEAL
+    ══════════════════════════════════════════════ */
+    .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity .75s cubic-bezier(.22, 1, .36, 1), transform .75s cubic-bezier(.22, 1, .36, 1);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .d1 { transition-delay: .12s; }
+    .d2 { transition-delay: .24s; }
+    .d3 { transition-delay: .36s; }
+    .d4 { transition-delay: .48s; }
+
+    /* ══════════════════════════════════════════════
+       CONTENEUR PRINCIPAL
+    ══════════════════════════════════════════════ */
+    .mac-window { width: 100%; background: var(--white); }
+
+    /* ══════════════════════════════════════════════
+       MENU MOBILE
+    ══════════════════════════════════════════════ */
+    .mobile-menu { position: fixed; inset: 0; z-index: 200; display: flex; pointer-events: none; }
+    .mobile-menu__overlay { position: absolute; inset: 0; background: rgba(0,0,0,0); transition: background .35s; }
+    .mobile-menu__panel {
+        position: relative; width: 300px; max-width: 85vw;
+        background: var(--dark); color: var(--white);
+        padding: 2rem 1.8rem; overflow-y: auto;
+        transform: translateX(-100%);
+        transition: transform .35s cubic-bezier(.4,0,.2,1);
+        display: flex; flex-direction: column; gap: 2rem;
+    }
+    body.menu-open .mobile-menu          { pointer-events: all; }
+    body.menu-open .mobile-menu__overlay { background: rgba(0,0,0,.65); }
+    body.menu-open .mobile-menu__panel   { transform: translateX(0); }
+
+    .mobile-menu__close {
+        align-self: flex-end; cursor: pointer;
+        width: 36px; height: 36px; border-radius: 50%;
+        border: 1px solid rgba(255,255,255,.2);
+        display: flex; align-items: center; justify-content: center;
+    }
+    .mobile-menu__close svg { width: 16px; height: 16px; fill: var(--white); }
+
+    .mobile-menu__logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: .3em; }
+    .mobile-menu__nav  { display: flex; flex-direction: column; gap: .2rem; }
+    .mobile-menu__nav a {
+        font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: .12em;
+        padding: .6rem 0; border-bottom: 1px solid rgba(255,255,255,.08);
+        transition: color .2s, padding-left .2s;
+    }
+    .mobile-menu__nav a:hover { color: var(--red); padding-left: .4rem; }
+    .mobile-menu__social { display: flex; gap: 1rem; }
+    .mobile-menu__social a { color: var(--grey-lt); transition: color .2s; }
+    .mobile-menu__social a:hover { color: var(--red); }
+    .mobile-menu__social svg { width: 18px; height: 18px; fill: currentColor; display: block; }
+
+    /* ══════════════════════════════════════════════
+       OVERLAY RECHERCHE
+    ══════════════════════════════════════════════ */
+    .search-overlay {
+        position: fixed; inset: 0; z-index: 300;
+        background: rgba(0,0,0,.94);
+        display: flex; align-items: center; justify-content: center;
+        flex-direction: column; gap: 1.5rem;
+        opacity: 0; pointer-events: none; transition: opacity .3s;
+    }
+    .search-overlay.active { opacity: 1; pointer-events: all; }
+    .search-overlay__close {
+        position: absolute; top: 1.5rem; right: 1.5rem; cursor: pointer; color: var(--white);
+        font-size: .72rem; font-weight: 600; letter-spacing: .15em; text-transform: uppercase;
+        display: flex; align-items: center; gap: .5rem;
+    }
+    .search-overlay__close svg { width: 18px; height: 18px; fill: currentColor; }
+    .search-overlay__label { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: .3em; color: var(--grey-lt); }
+    .search-overlay__form { display: flex; align-items: center; width: 90%; max-width: 600px; border-bottom: 2px solid var(--white); }
+    .search-overlay__form input {
+        flex: 1; background: none; border: none; color: var(--white);
+        font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: .08em;
+        padding: .5rem 0; outline: none;
+    }
+    .search-overlay__form input::placeholder { color: rgba(255,255,255,.22); }
+    .search-overlay__form button svg { width: 24px; height: 24px; fill: var(--white); display: block; }
+
+    /* Toast */
+    .toast {
+        position: fixed; bottom: 5rem; left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        background: var(--dark); color: var(--white);
+        padding: .7rem 1.5rem; font-size: .72rem; font-weight: 600;
+        letter-spacing: .1em; text-transform: uppercase;
+        border-left: 3px solid var(--red);
+        opacity: 0; pointer-events: none; transition: opacity .3s, transform .3s;
+        z-index: 400; white-space: nowrap;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ══════════════════════════════════════════════
+       NAVIGATION
+    ══════════════════════════════════════════════ */
+    .nav-bar {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 1.6rem 2.5rem;
+        position: absolute; top: 0; left: 0; right: 0;
+        z-index: 10; color: var(--white);
+    }
+    .nav-burger { display: flex; flex-direction: column; gap: 5px; padding: 6px; }
+    .nav-burger span { display: block; width: 22px; height: 1.5px; background: rgba(255,255,255,.75); transition: background .2s; }
+    .nav-burger:hover span { background: var(--white); }
+
+    .nav-logo {
+        font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; letter-spacing: .28em;
+        text-shadow: 0 2px 12px rgba(0,0,0,.5);
+        display: flex; align-items: center; gap: .5rem;
+    }
+    .nav-logo .bar { display: inline-block; width: 22px; height: 10px; background: var(--red); flex-shrink: 0; }
+
+    .nav-icons { display: flex; align-items: center; gap: 1.3rem; }
+    .nav-icons a, .nav-icons button { color: rgba(255,255,255,.75); transition: color .2s; display: flex; align-items: center; }
+    .nav-icons a:hover, .nav-icons button:hover { color: var(--white); }
+    .nav-icons svg { width: 16px; height: 16px; fill: currentColor; display: block; }
+
+    /* ══════════════════════════════════════════════
+       HERO
+       P_INIT = -(540 × 0.35) = -189px
+    ══════════════════════════════════════════════ */
+    .hero { position: relative; height: 540px; overflow: hidden; background: var(--dark); }
+
+    .hero-img {
+        position: absolute; top: 0; left: 0;
+        width: 100%; height: 145%;
+        object-fit: cover; opacity: .82;
+        will-change: transform;
+        transform: translateY(-189px);
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute; inset: 0; z-index: 2;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+        opacity: .55; pointer-events: none;
+    }
+    .hero::after {
+        content: ''; position: absolute; inset: 0; z-index: 3;
+        background:
+            linear-gradient(to bottom, rgba(0,0,0,.55) 0%, transparent 28%, transparent 42%, rgba(0,0,0,.92) 100%),
+            linear-gradient(to right, rgba(0,0,0,.4) 0%, transparent 55%);
+        pointer-events: none;
+    }
+    .hero-accent { display: none; }
+    .hero-caption {
+        position: absolute; bottom: 0; left: 0; right: 0; z-index: 5;
+        color: var(--white); padding: 3rem 3rem 3.5rem; pointer-events: none;
+    }
+    .hero-caption .tag {
+        display: inline-flex; align-items: center; gap: .5rem;
+        font-size: .58rem; letter-spacing: .3em; text-transform: uppercase;
+        background: var(--red); padding: .3rem .9rem; margin-bottom: 1.2rem;
+        opacity: 0; animation: fadeIn .7s .5s ease both;
+    }
+    .hero-caption h1 {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: clamp(3.5rem, 6vw, 6rem);
+        letter-spacing: .04em; line-height: .9;
+        text-shadow: 0 4px 28px rgba(0,0,0,.7);
+        opacity: 0; animation: fadeUp .9s .7s cubic-bezier(.22,1,.36,1) both;
+    }
+    .hero-caption h1 em { font-style: normal; color: rgba(255,255,255,.38); }
+    .hero-caption .sub {
+        font-size: .88rem; letter-spacing: .04em; margin-top: 1.1rem;
+        max-width: 480px; line-height: 1.65; font-weight: 300; color: rgba(255,255,255,.85);
+        opacity: 0; animation: fadeUp .9s .9s cubic-bezier(.22,1,.36,1) both;
+    }
+    .hero-caption .hero-cta {
+        display: inline-flex; align-items: center; gap: .65rem; margin-top: 1.8rem;
+        background: var(--red); color: var(--white);
+        font-family: 'Bebas Neue', sans-serif; font-size: .95rem; letter-spacing: .22em;
+        padding: .8rem 1.8rem; pointer-events: all; cursor: pointer;
+        transition: background .25s, transform .2s;
+        opacity: 0; animation: fadeUp .9s 1.1s cubic-bezier(.22,1,.36,1) both;
+    }
+    .hero-caption .hero-cta:hover { background: var(--red-dk); transform: translateY(-2px); }
+    .hero-caption .hero-cta svg   { width: 15px; height: 15px; fill: currentColor; }
+
+    .scroll-hint {
+        position: absolute; bottom: 2rem; right: 2.5rem; z-index: 5;
+        color: rgba(255,255,255,.4);
+        display: flex; flex-direction: column; align-items: center; gap: .35rem;
+        font-size: .52rem; letter-spacing: .22em; text-transform: uppercase;
+        pointer-events: none; opacity: 0; animation: fadeIn .8s 1.6s ease both;
+    }
+    .scroll-hint svg { width: 16px; height: 16px; fill: currentColor; animation: bounce 2s 2s ease-in-out infinite; }
+
+    /* ══════════════════════════════════════════════
+       PROFILE / LA CHAÎNE
+    ══════════════════════════════════════════════ */
+    .profile { background: var(--white); padding: 3.5rem clamp(1.5rem, 5vw, 5rem) 4rem; max-width: 1360px; margin: 0 auto; }
+
+    .profile-top {
+        display: flex; justify-content: space-between; align-items: flex-start;
+        flex-wrap: wrap; gap: 1.5rem;
+        border-bottom: 1px solid var(--border); padding-bottom: 2rem; margin-bottom: 2.5rem;
+    }
+    .profile-title h2 {
+        font-family: 'Bebas Neue', sans-serif; font-size: 3rem; letter-spacing: .04em; line-height: 1;
+    }
+    .profile-cat { margin-top: .8rem; display: flex; gap: .5rem; flex-wrap: wrap; }
+    .profile-cat span {
+        font-size: .6rem; letter-spacing: .15em; text-transform: uppercase;
+        background: var(--cream); color: var(--grey);
+        padding: .28rem .8rem; border: 1px solid var(--border); transition: all .2s;
+    }
+    .profile-cat span:hover { background: var(--red); color: var(--white); border-color: var(--red); }
+    .stars {
+        margin-top: .8rem; color: var(--red); letter-spacing: .35em; font-size: .85rem;
+        border-top: 1px solid var(--border); padding-top: .6rem; display: inline-block;
+    }
+
+    .profile-actions { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; justify-content: flex-end; }
+    .profile-actions a {
+        display: flex; align-items: center; gap: .45rem;
+        font-size: .65rem; letter-spacing: .15em; text-transform: uppercase;
+        padding: .55rem 1.1rem; border: 1px solid var(--border); transition: all .2s; cursor: pointer;
+    }
+    .profile-actions a:hover       { color: var(--white); border-color: var(--red); background: var(--red); }
+    .profile-actions a:first-child { background: var(--black); color: var(--white); border-color: var(--black); }
+    .profile-actions a:first-child:hover { background: var(--red); border-color: var(--red); }
+    .profile-actions svg { width: 11px; height: 11px; fill: currentColor; }
+
+    /* Bande de méta-infos */
+    .meta-row { display: flex; flex-wrap: wrap; margin-bottom: 2.5rem; gap: .5rem; }
+    .meta-cell {
+        flex: 1; min-width: 130px; padding: 1rem 1.4rem 1rem 0; position: relative;
+        border-right: 1px solid var(--border);
+    }
+    .meta-cell:last-child { border-right: none; }
+    .meta-cell strong {
+        display: block; font-size: .58rem; letter-spacing: .2em; text-transform: uppercase;
+        color: var(--grey-lt); margin-bottom: .3rem;
+    }
+    .meta-cell span { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: .05em; }
+
+    /* Corps du profile */
+    .profile-body { display: grid; grid-template-columns: 210px 1fr 1.1fr; gap: 2.5rem; }
+
+    .poster {
+        aspect-ratio: 2 / 3; background: #111;
+        overflow: hidden; box-shadow: 12px 18px 50px rgba(0,0,0,.25); position: relative;
+    }
+    .poster img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s; }
+    .poster:hover img { transform: scale(1.05); }
+    .poster::after { content: ''; position: absolute; inset: 0; border: 1px solid rgba(255,255,255,.06); pointer-events: none; }
+
+    .info-col { display: flex; flex-direction: column; gap: 1.3rem; }
+    .info-block { padding-bottom: 1.2rem; border-bottom: 1px solid var(--border); }
+    .info-block:last-child { border-bottom: none; }
+    .info-block strong { display: block; font-size: .6rem; letter-spacing: .22em; text-transform: uppercase; color: var(--grey-lt); margin-bottom: .5rem; }
+    .info-block p { font-size: .82rem; color: #555; line-height: 1.7; }
+    .info-text { overflow: hidden; max-height: 68px; transition: max-height .5s ease; }
+    .info-text.expanded { max-height: 600px; }
+    .read-more {
+        display: inline-flex; align-items: center; gap: .4rem; margin-top: .65rem;
+        background: var(--black); color: var(--white);
+        padding: .5rem 1rem; font-family: 'Bebas Neue', sans-serif;
+        font-size: .72rem; letter-spacing: .2em; transition: background .2s;
+    }
+    .read-more:hover { background: var(--red); }
+
+    .trailer-col { display: flex; flex-direction: column; gap: 1.1rem; }
+    .trailer-label {
+        font-size: .62rem; letter-spacing: .25em; text-transform: uppercase;
+        font-weight: 700; display: flex; align-items: center; gap: .55rem;
+    }
+    .trailer-label::before { content: ''; display: block; width: 20px; height: 2px; background: var(--red); }
+    .trailer-thumb {
+        position: relative; aspect-ratio: 16 / 9;
+        overflow: hidden; cursor: pointer; background: #000; display: block;
+    }
+    .trailer-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s, opacity .3s; }
+    .trailer-thumb:hover img { transform: scale(1.05); opacity: .6; }
+    .play-btn { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 2; }
+    .play-circle {
+        width: 56px; height: 56px; border-radius: 50%; background: var(--red);
+        display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 8px 28px rgba(232,76,61,.5); transition: transform .25s, box-shadow .25s;
+    }
+    .trailer-thumb:hover .play-circle { transform: scale(1.14); box-shadow: 0 12px 40px rgba(232,76,61,.7); }
+    .play-circle svg { width: 22px; height: 22px; fill: white; margin-left: 3px; }
+    .trailer-corner {
+        position: absolute; bottom: .6rem; right: .6rem; z-index: 3;
+        width: 28px; height: 28px; background: rgba(0,0,0,.55);
+        display: flex; align-items: center; justify-content: center; transition: background .2s;
+    }
+    .trailer-corner:hover { background: var(--red); }
+    .trailer-corner svg { width: 12px; height: 12px; fill: white; }
+
+    /* Tags de la colonne trailer */
+    .trailer-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .3rem; }
+    .trailer-tag {
+        font-size: .58rem; letter-spacing: .12em; text-transform: uppercase;
+        color: var(--grey); border: 1px solid var(--border); padding: .2rem .55rem;
+        transition: all .2s;
+    }
+    .trailer-tag:hover { color: var(--red); border-color: var(--red); }
+
+    /* ══════════════════════════════════════════════
+       STATS
+    ══════════════════════════════════════════════ */
+    .stats-band {
+        background: var(--dark); color: var(--white);
+        display: grid; grid-template-columns: repeat(4, 1fr);
+    }
+    .stat-item { padding: 2.5rem 2rem; text-align: center; border-right: 1px solid rgba(255,255,255,.07); }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+        font-family: 'Bebas Neue', sans-serif; font-size: 3.2rem; letter-spacing: .04em;
+        color: var(--white); line-height: 1;
+        display: flex; align-items: baseline; justify-content: center; gap: .1rem;
+        margin-bottom: .45rem;
+    }
+    .stat-label { font-size: .58rem; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,255,255,.38); }
+    .stat-tilde { font-size: 1.8rem; opacity: .3; font-family: 'Inter', sans-serif; font-weight: 300; }
+    .stat-unit  { font-size: 1.4rem; opacity: .45; letter-spacing: .06em; margin-left: .08rem; }
+
+    /* ══════════════════════════════════════════════
+       CITATION
+    ══════════════════════════════════════════════ */
+    .quote-band {
+        background: var(--cream); text-align: center;
+        padding: 5rem 2.5rem; position: relative; overflow: hidden;
+    }
+    .quote-band-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+    .quote-band::before {
+        content: '\201C'; position: absolute; top: -3.5rem; left: 50%; transform: translateX(-50%);
+        font-family: 'Playfair Display', serif; font-size: 18rem; color: var(--black); opacity: .04;
+        line-height: 1; pointer-events: none;
+    }
+    .quote-band blockquote {
+        font-family: 'Playfair Display', serif; font-style: italic;
+        font-size: 1.4rem; color: #444;
+        margin-bottom: 1.2rem; line-height: 1.75;
+    }
+    .quote-band cite { font-size: .65rem; font-weight: 700; letter-spacing: .3em; text-transform: uppercase; color: var(--black); font-style: normal; opacity: .6; }
+
+    /* ══════════════════════════════════════════════
+       NOTRE CONCEPT
+    ══════════════════════════════════════════════ */
+    .approach-section { background: var(--dark-2); color: var(--white); padding: var(--section-p); }
+
+    .section-header { text-align: center; margin-bottom: 3.5rem; }
+    .section-header .pre {
+        font-size: .58rem; letter-spacing: .35em; text-transform: uppercase;
+        color: var(--red); margin-bottom: 1rem; display: block;
+    }
+    .section-header h2 {
+        font-family: 'Bebas Neue', sans-serif; font-size: 3rem; letter-spacing: .1em;
+        color: var(--white); line-height: 1;
+    }
+    .section-header p {
+        margin-top: 1rem; font-size: .85rem; color: rgba(255,255,255,.38);
+        max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.75;
+    }
+
+    .approach-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .approach-card {
+        background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.07);
+        padding: 2.5rem 2rem; position: relative; overflow: hidden;
+        transition: background .3s, border-color .3s, transform .35s cubic-bezier(.22,1,.36,1);
+    }
+    .approach-card::before {
+        content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+        background: var(--red); transform: scaleX(0); transform-origin: left; transition: transform .4s;
+    }
+    .approach-card:hover { background: rgba(255,255,255,.07); border-color: rgba(232,76,61,.25); transform: translateY(-6px); }
+    .approach-card:hover::before { transform: scaleX(1); }
+    .approach-card .card-num {
+        font-family: 'Bebas Neue', sans-serif; font-size: 4rem;
+        color: rgba(255,255,255,.07); line-height: 1; margin-bottom: .3rem;
+    }
+    .approach-card .card-icon {
+        width: 44px; height: 44px; background: var(--red); border-radius: 50%;
+        display: flex; align-items: center; justify-content: center; margin-bottom: 1.3rem;
+    }
+    .approach-card .card-icon svg { width: 18px; height: 18px; fill: white; }
+    .approach-card h3 {
+        font-family: 'Bebas Neue', sans-serif; font-size: 1.35rem; letter-spacing: .15em;
+        margin-bottom: .8rem; color: var(--white);
+    }
+    .approach-card p { font-size: .8rem; color: rgba(255,255,255,.42); line-height: 1.75; }
+
+    /* ══════════════════════════════════════════════
+       VIDÉOS
+    ══════════════════════════════════════════════ */
+    .related {
+        background: var(--black); color: var(--white);
+        padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem) clamp(2rem, 4vw, 3.5rem);
+    }
+
+    .related-header { text-align: center; margin-bottom: 2.5rem; }
+    .related-header .pre {
+        font-size: .58rem; letter-spacing: .35em; text-transform: uppercase;
+        color: var(--red); margin-bottom: .8rem; display: block;
+    }
+    .related-header h2 {
+        font-family: 'Bebas Neue', sans-serif; font-size: 3rem; letter-spacing: .1em; line-height: 1;
+    }
+
+    .related-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.2rem;
+        max-width: 820px;
+        margin: 0 auto;
+    }
+
+    .related-card {
+        display: block; position: relative;
+        transition: transform .4s cubic-bezier(.22,1,.36,1);
+    }
+    .related-card:hover { transform: translateY(-6px); }
+
+    .related-card-thumb {
+        aspect-ratio: 9 / 16;
+        background: #1a1a1a;
+        overflow: hidden; position: relative;
+    }
+    .related-card-thumb img {
+        width: 100%; height: 100%; object-fit: cover;
+        transition: transform .55s ease, opacity .35s;
+    }
+    .related-card:hover .related-card-thumb img { transform: scale(1.08); opacity: .45; }
+
+    /* Gradient + texte à l'intérieur de la miniature */
+    .card-overlay {
+        position: absolute; inset: 0; z-index: 2;
+        background: linear-gradient(to top,
+            rgba(0,0,0,.92) 0%,
+            rgba(0,0,0,.3)  42%,
+            transparent     68%);
+        display: flex; flex-direction: column;
+        justify-content: space-between;
+        padding: .9rem .85rem;
+        pointer-events: none;
+    }
+    .card-ep {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 1.6rem; color: rgba(255,255,255,.1);
+        letter-spacing: .05em; line-height: 1;
+        align-self: flex-end;
+    }
+    .card-info h3 {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 1.05rem; letter-spacing: .1em; line-height: 1.2;
+        color: var(--white); margin-bottom: .3rem;
+    }
+    .shorts-badge {
+        font-size: .5rem; letter-spacing: .18em; text-transform: uppercase;
+        color: rgba(255,255,255,.45); font-weight: 600;
+        display: flex; align-items: center; gap: .4rem;
+    }
+    .shorts-badge::before {
+        content: '';
+        display: inline-block; width: 5px; height: 5px;
+        background: var(--red); border-radius: 50; flex-shrink: 0;
+    }
+
+    /* Bouton play circulaire centré */
+    .play-overlay {
+        position: absolute; inset: 0; z-index: 3;
+        display: flex; align-items: center; justify-content: center;
+        opacity: 0; transition: opacity .3s;
+        pointer-events: none;
+    }
+    .related-card:hover .play-overlay { opacity: 1; }
+    .play-circle-sm {
+        width: 50px; height: 50px; border-radius: 50%;
+        background: var(--red);
+        display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 6px 28px rgba(232,76,61,.55);
+        transition: transform .25s;
+    }
+    .related-card:hover .play-circle-sm { transform: scale(1.1); }
+    .play-circle-sm svg { width: 20px; height: 20px; fill: white; margin-left: 3px; }
+
+    /* Barre rouge bas au hover */
+    .related-card-thumb::after {
+        content: '';
+        position: absolute; bottom: 0; left: 0; right: 0; height: 2px; z-index: 4;
+        background: var(--red);
+        transform: scaleX(0); transform-origin: left;
+        transition: transform .4s cubic-bezier(.22,1,.36,1);
+    }
+    .related-card:hover .related-card-thumb::after { transform: scaleX(1); }
+
+    .related-cta { text-align: center; margin-top: 2.8rem; }
+    .related-cta a {
+        display: inline-flex; align-items: center; gap: .65rem;
+        font-family: 'Bebas Neue', sans-serif; font-size: .95rem; letter-spacing: .25em;
+        border: 1.5px solid rgba(255,255,255,.22); color: var(--white); padding: .8rem 2.4rem;
+        transition: background .25s, border-color .25s;
+    }
+    .related-cta a:hover { background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.55); }
+    .related-cta a svg { width: 14px; height: 14px; fill: currentColor; }
+
+    /* ══════════════════════════════════════════════
+       CTA YOUTUBE — bande abonnement
+    ══════════════════════════════════════════════ */
+    .yt-cta { background: var(--red); padding: 4rem 3rem; }
+    .yt-cta-inner {
+        max-width: 860px; margin: 0 auto;
+        display: flex; align-items: center; justify-content: space-between; gap: 2.5rem;
+        flex-wrap: wrap;
+    }
+    .yt-cta-text .pre {
+        font-size: .58rem; letter-spacing: .35em; text-transform: uppercase;
+        color: rgba(255,255,255,.65); margin-bottom: .8rem; display: block;
+    }
+    .yt-cta-text h2 {
+        font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem; letter-spacing: .08em;
+        color: var(--white); line-height: 1; margin-bottom: .6rem;
+    }
+    .yt-cta-text p { font-size: .82rem; color: rgba(255,255,255,.75); max-width: 440px; line-height: 1.65; }
+    .yt-cta-btn {
+        display: inline-flex; align-items: center; gap: .7rem; flex-shrink: 0;
+        background: var(--white); color: var(--red);
+        font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: .2em;
+        padding: .9rem 2.2rem;
+        transition: background .2s, transform .2s; white-space: nowrap;
+    }
+    .yt-cta-btn:hover { background: var(--cream); transform: scale(1.03); }
+    .yt-cta-btn svg { width: 20px; height: 20px; fill: var(--red); flex-shrink: 0; }
+
+    /* ══════════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════════ */
+    footer { background: var(--white); border-top: 1px solid var(--border); }
+
+    .footer-top {
+        display: grid; grid-template-columns: 1.6fr 1fr;
+        gap: 4rem; padding: 4rem 3rem 3.5rem;
+        max-width: 1100px; margin: 0 auto;
+    }
+
+    .logo-mark {
+        display: flex; align-items: center; gap: .45rem; margin-bottom: 1.2rem;
+        font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem; letter-spacing: .28em;
+    }
+    .logo-mark .bar { display: inline-block; width: 20px; height: 9px; background: var(--red); }
+
+    .footer-brand p { font-size: .78rem; color: var(--grey); line-height: 1.75; margin-bottom: 1.2rem; max-width: 360px; }
+    .footer-brand .email-link {
+        font-size: .75rem; color: var(--red); font-weight: 600;
+        display: inline-flex; align-items: center; gap: .35rem;
+        text-decoration: underline; text-underline-offset: 3px; transition: color .2s;
+    }
+    .footer-brand .email-link:hover { color: var(--red-dk); }
+
+    .footer-social { display: flex; gap: .6rem; margin-top: 1.5rem; }
+    .footer-social a {
+        color: var(--grey); display: flex; align-items: center; justify-content: center;
+        width: 34px; height: 34px; border: 1px solid var(--border); border-radius: 50%; transition: all .2s;
+    }
+    .footer-social a:hover { color: var(--white); border-color: var(--red); background: var(--red); }
+    .footer-social svg { width: 13px; height: 13px; fill: currentColor; display: block; }
+
+    .footer-col h4 {
+        font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: .28em;
+        margin-bottom: 1.5rem; color: var(--grey);
+    }
+    .footer-menu { display: flex; flex-direction: column; gap: .7rem; }
+    .footer-menu a {
+        font-size: .75rem; color: var(--grey); transition: color .2s;
+        display: flex; align-items: center; gap: .4rem;
+    }
+    .footer-menu a::before { content: '→'; font-size: .6rem; color: var(--red); opacity: 0; transition: opacity .2s; }
+    .footer-menu a:hover { color: var(--black); }
+    .footer-menu a:hover::before { opacity: 1; }
+
+    .footer-bottom {
+        background: var(--dark); color: rgba(255,255,255,.4); text-align: center;
+        padding: .9rem; font-size: .58rem; letter-spacing: .2em; text-transform: uppercase;
+    }
+
+    /* ══════════════════════════════════════════════
+       BOUTON RETOUR EN HAUT
+    ══════════════════════════════════════════════ */
+    .floating-btn {
+        position: fixed; bottom: 2rem; right: 2rem;
+        width: 46px; height: 46px; border-radius: 50%;
+        background: var(--dark); border: 1px solid rgba(255,255,255,.12);
+        display: flex; align-items: center; justify-content: center;
+        cursor: pointer; box-shadow: 0 6px 24px rgba(0,0,0,.4); z-index: 50;
+        opacity: 0; pointer-events: none; transform: translateY(14px);
+        transition: all .35s cubic-bezier(.22,1,.36,1);
+    }
+    .floating-btn.visible { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .floating-btn:hover   { background: var(--red); border-color: var(--red); transform: scale(1.1); }
+    .floating-btn svg     { width: 16px; height: 16px; fill: var(--white); }
+
+    /* ══════════════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════════════ */
+
+    /* Tablette (≤ 1024 px) */
+    @media (max-width: 1024px) {
+        .profile-body { grid-template-columns: 190px 1fr; }
+        .trailer-col  { display: none; }
+    }
+
+    /* Tablette (≤ 860 px) */
+    @media (max-width: 860px) {
+        .approach-grid { grid-template-columns: 1fr 1fr; }
+        .stats-band { grid-template-columns: repeat(2, 1fr); }
+        .related-grid { grid-template-columns: repeat(3, 1fr); gap: .9rem; }
+        .footer-top { grid-template-columns: 1fr; gap: 2.5rem; }
+        .yt-cta-inner { flex-direction: column; align-items: flex-start; }
+        .yt-cta-btn { align-self: flex-start; }
+    }
+
+    /* Mobile (≤ 680 px) */
+    @media (max-width: 680px) {
+        .nav-bar  { padding: 1rem 1.2rem; }
+        .nav-logo { font-size: 1.25rem; letter-spacing: .2em; }
+        .nav-icons a { display: none; }
+
+        .hero { height: 420px; }
+        .hero-caption { padding: 1.8rem 1.4rem 2.5rem; }
+        .hero-caption h1 { font-size: clamp(2.6rem, 9vw, 4rem); }
+        .hero-caption .sub { max-width: 100%; font-size: .82rem; }
+        .hero-caption .hero-cta { width: 100%; justify-content: center; }
+        .scroll-hint { display: none; }
+
+        .profile { padding: 2rem 1.4rem; }
+        .profile-top { flex-direction: column; gap: .8rem; }
+        .profile-title h2 { font-size: 2.1rem; }
+        .profile-actions { justify-content: flex-start; }
+        .meta-row { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-bottom: 1.8rem; }
+        .meta-cell { border-right: none; padding-right: 0; border-bottom: 1px solid var(--border); padding-bottom: .8rem; }
+        .meta-cell:nth-child(3), .meta-cell:nth-child(4) { border-bottom: none; }
+        .profile-body { grid-template-columns: 1fr; }
+        .poster { display: none; }
+        .trailer-col { display: none; }
+
+        .approach-section { padding: 3rem 1.4rem; }
+        .approach-grid { grid-template-columns: 1fr; gap: 1rem; }
+        .quote-band { padding: 3.5rem 1.4rem; }
+        .quote-band blockquote { font-size: 1.1rem; }
+        .related { padding: 2.5rem 1.4rem 2rem; }
+        .related-grid { grid-template-columns: 1fr 1fr; gap: .7rem; max-width: 480px; }
+
+        .yt-cta { padding: 3rem 1.4rem; }
+        .yt-cta-text h2 { font-size: 2rem; }
+
+        .stats-band { grid-template-columns: 1fr 1fr; }
+        .stat-num { font-size: 2.5rem; }
+        .stat-item { padding: 2rem 1.2rem; }
+
+        .footer-top { padding: 2.5rem 1.4rem; gap: 2rem; }
+        .toast { white-space: normal; text-align: center; max-width: 88vw; }
+        .floating-btn { bottom: 1.2rem; right: 1.2rem; }
+    }
+
+    /* Très petit (≤ 400 px) */
+    @media (max-width: 400px) {
+        .hero-caption h1 { font-size: 2.4rem; }
+        .related-grid { grid-template-columns: 1fr 1fr; gap: .5rem; max-width: 360px; }
+        .stat-num { font-size: 2.1rem; }
+    }
+
+    </style>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Aller au contenu principal</a>
+
+<!-- ══════════════════════════════════════════════
+     MENU MOBILE
+══════════════════════════════════════════════ -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Menu principal">
+    <div class="mobile-menu__overlay" id="menuOverlay"></div>
+    <div class="mobile-menu__panel">
+        <button class="mobile-menu__close" id="menuClose" aria-label="Fermer le menu">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" stroke="white" stroke-width="2" fill="none"/></svg>
+        </button>
+        <div class="mobile-menu__logo">Les héros <span style="color:var(--red)">de l'ombre</span></div>
+        <nav class="mobile-menu__nav" aria-label="Navigation principale">
+            <a href="#hero">Accueil</a>
+            <a href="#about">La chaîne</a>
+            <a href="#concept">Notre concept</a>
+            <a href="#videos">Vidéos</a>
+            <a href="contact.html">Contact</a>
+            <a href="mentions-legales.html">Mentions légales</a>
+        </nav>
+        <div class="mobile-menu__social">
+            <a href="https://youtube.com/@LHerosDeLOmbre" target="_blank" rel="noopener" aria-label="Notre chaîne YouTube">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg>
+            </a>
+            <a href="https://twitter.com/LHerosDeLOmbre" target="_blank" rel="noopener" aria-label="Nous suivre sur X / Twitter">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="https://instagram.com/LHerosDeLOmbre" target="_blank" rel="noopener" aria-label="Nous suivre sur Instagram">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8 0 3.2 0 3.6-.1 4.8-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1-3.2 0-3.6 0-4.8-.1-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12c0-3.2 0-3.6.1-4.8C2.4 3.9 4 2.3 7.2 2.3c1.2-.1 1.6-.1 4.8-.1Zm0-2.2C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12c0 3.3 0 3.7.1 4.9.2 4.4 2.6 6.8 7 7C8.3 24 8.7 24 12 24c3.3 0 3.7 0 4.9-.1 4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9 0-3.3 0-3.7-.1-4.9C23.7 2.7 21.3.3 16.9.1 15.7 0 15.3 0 12 0Zm0 5.8a6.2 6.2 0 1 0 0 12.4A6.2 6.2 0 0 0 12 5.8Zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.4-11.8a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88Z"/></svg>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     OVERLAY RECHERCHE
+══════════════════════════════════════════════ -->
+<div class="search-overlay" id="searchOverlay" role="dialog" aria-modal="true" aria-label="Recherche de vidéos">
+    <button class="search-overlay__close" id="searchClose">
+        Fermer
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+    </button>
+    <p class="search-overlay__label">Rechercher une vidéo</p>
+    <form class="search-overlay__form" id="searchForm">
+        <input type="text" id="searchInput" placeholder="Ex : Hans Landa, Sam Gamgee…" autocomplete="off" aria-label="Terme de recherche">
+        <button type="submit" aria-label="Lancer la recherche">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.7 20.3l-4.4-4.4a8.5 8.5 0 1 0-1.4 1.4l4.4 4.4 1.4-1.4Zm-11.2-3.3a6.5 6.5 0 1 1 0-13 6.5 6.5 0 0 1 0 13Z"/></svg>
+        </button>
+    </form>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- ══════════════════════════════════════════════
+     CONTENU PRINCIPAL
+══════════════════════════════════════════════ -->
+<div class="mac-window">
+    <div class="mac-body" id="main-content" role="main">
+
+        <!-- ── HERO ── -->
+        <section class="hero" id="hero">
+            <div class="hero-accent" aria-hidden="true"></div>
+
+            <nav class="nav-bar" aria-label="Navigation principale">
+                <button class="nav-burger" id="burgerBtn" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileMenu">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </button>
+                <a class="nav-logo" href="#hero">
+                    <span class="bar" aria-hidden="true"></span>Les héros de l'ombre
+                </a>
+                <div class="nav-icons">
+                    <a href="https://youtube.com/@LHerosDeLOmbre" target="_blank" rel="noopener" aria-label="Notre chaîne YouTube (nouvel onglet)">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg>
+                    </a>
+                    <a href="https://twitter.com/LHerosDeLOmbre" target="_blank" rel="noopener" aria-label="Nous suivre sur X / Twitter (nouvel onglet)">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="https://instagram.com/LHerosDeLOmbre" target="_blank" rel="noopener" aria-label="Nous suivre sur Instagram (nouvel onglet)">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8 0 3.2 0 3.6-.1 4.8-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1-3.2 0-3.6 0-4.8-.1-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12c0-3.2 0-3.6.1-4.8C2.4 3.9 4 2.3 7.2 2.3c1.2-.1 1.6-.1 4.8-.1Zm0-2.2C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12c0 3.3 0 3.7.1 4.9.2 4.4 2.6 6.8 7 7C8.3 24 8.7 24 12 24c3.3 0 3.7 0 4.9-.1 4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9 0-3.3 0-3.7-.1-4.9C23.7 2.7 21.3.3 16.9.1 15.7 0 15.3 0 12 0Zm0 5.8a6.2 6.2 0 1 0 0 12.4A6.2 6.2 0 0 0 12 5.8Zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.4-11.8a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88Z"/></svg>
+                    </a>
+                    <button id="searchBtn" aria-label="Ouvrir la recherche">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M21.7 20.3l-4.4-4.4a8.5 8.5 0 1 0-1.4 1.4l4.4 4.4 1.4-1.4Zm-11.2-3.3a6.5 6.5 0 1 1 0-13 6.5 6.5 0 0 1 0 13Z"/></svg>
+                    </button>
+                </div>
+            </nav>
+
+            <img class="hero-img"
+                 src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1600&q=80"
+                 alt="Salle de cinéma dans l'obscurité">
+
+            <div class="hero-caption">
+                <span class="tag">✦ Chaîne YouTube · Cinéma &amp; Séries</span>
+                <h1>Les Héros<br><em>de l'Ombre</em></h1>
+                <p class="sub">Ces personnages secondaires sans qui les grandes œuvres ne seraient rien. Analyse, passion, cinéphilie.</p>
+                <a href="#videos" class="hero-cta">
+                    Voir les vidéos
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+                </a>
+            </div>
+
+            <div class="scroll-hint" aria-hidden="true">
+                Défiler
+                <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+            </div>
+        </section>
+
+        <!-- ── LA CHAÎNE ── -->
+        <section class="profile" id="about">
+            <div class="profile-top">
+                <div class="profile-title reveal">
+                    <h2>LES HÉROS DE L'OMBRE</h2>
+                    <div class="profile-cat">
+                        <span>Cinéma</span>
+                        <span>Séries</span>
+                        <span>Analyse</span>
+                    </div>
+                    <div class="stars" aria-label="5 étoiles">★ ★ ★ ★ ★</div>
+                </div>
+                <div class="profile-actions reveal d2">
+                    <a id="shareBtn" role="button" tabindex="0">
+                        Partager
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 16a3 3 0 0 0-2.4 1.2l-7.3-4.3a3 3 0 0 0 0-1.8l7.3-4.3a3 3 0 1 0-1-1.7L7.4 9.4a3 3 0 1 0 0 5.2l7.3 4.3A3 3 0 1 0 18 16Z"/></svg>
+                    </a>
+                    <a href="https://youtube.com/@LHerosDeLOmbre" target="_blank" rel="noopener">
+                        Chaîne officielle
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v2h3.6l-9.8 9.8 1.4 1.4L19 6.4V10h2V3z"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="meta-row reveal d1">
+                <div class="meta-cell"><strong>Format</strong><span>Short</span></div>
+                <div class="meta-cell"><strong>Durée moy.</strong><span>~4 min</span></div>
+                <div class="meta-cell"><strong>Abonnés</strong><span>1 000</span></div>
+                <div class="meta-cell"><strong>Depuis</strong><span>2026</span></div>
+            </div>
+
+            <div class="profile-body">
+                <div class="poster reveal">
+                    <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=400&q=85"
+                         alt="Affiche Les Héros de l'Ombre">
+                </div>
+                <div class="info-col reveal d1">
+                    <div class="info-block">
+                        <strong>Créateur</strong>
+                        <p>Les Héros de l'Ombre</p>
+                    </div>
+                    <div class="info-block">
+                        <strong>Format</strong>
+                        <p>YouTube Shorts · ~4 minutes par épisode</p>
+                    </div>
+                    <div class="info-block">
+                        <strong>Sujet</strong>
+                        <p class="info-text" id="infoText">
+                            Chaque épisode plonge dans l'histoire d'un personnage secondaire du cinéma ou des séries — ces visages qu'on oublie de citer mais sans qui rien ne tient. Analyse de la construction narrative, du jeu d'acteur et du rôle essentiel de ces héros de l'ombre dans les grandes œuvres. Une chaîne pour les vrais cinéphiles qui savent que le génie se cache dans les détails.
+                        </p>
+                        <button class="read-more" id="readMoreBtn">Lire plus</button>
+                    </div>
+                </div>
+                <div class="trailer-col reveal d2">
+                    <div class="trailer-label">Dernière vidéo</div>
+                    <a class="trailer-thumb"
+                       href="https://youtube.com/@LHerosDeLOmbre"
+                       target="_blank"
+                       rel="noopener"
+                       aria-label="Voir la dernière vidéo sur YouTube (nouvel onglet)">
+                        <img src="https://images.unsplash.com/photo-1574267432553-4b4628081c31?w=800&q=80"
+                             alt="Miniature de la dernière vidéo">
+                        <div class="play-btn" aria-hidden="true">
+                            <div class="play-circle">
+                                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                        </div>
+                        <div class="trailer-corner" aria-hidden="true">
+                            <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                        </div>
+                    </a>
+                    <div class="trailer-tags">
+                        <span class="trailer-tag">Cinéma</span>
+                        <span class="trailer-tag">Personnages</span>
+                        <span class="trailer-tag">Analyse</span>
+                        <span class="trailer-tag">Shorts</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── STATS ── -->
+        <div class="stats-band" id="statsBand">
+            <div class="stat-item reveal">
+                <span class="stat-num" data-target="1000">0</span>
+                <span class="stat-label">Abonnés</span>
+            </div>
+            <div class="stat-item reveal d1">
+                <span class="stat-num" data-target="4" data-suffix="+">0</span>
+                <span class="stat-label">Épisodes</span>
+            </div>
+            <div class="stat-item reveal d2">
+                <span class="stat-num" data-target="30000">0</span>
+                <span class="stat-label">Vues totales</span>
+            </div>
+            <div class="stat-item reveal d3">
+                <span class="stat-num" aria-label="Environ 4 minutes par épisode">
+                    <span class="stat-tilde" aria-hidden="true">~</span>
+                    <span data-target="4" data-suffix="">0</span>
+                    <span class="stat-unit" aria-hidden="true">min</span>
+                </span>
+                <span class="stat-label">Par épisode</span>
+            </div>
+        </div>
+
+        <!-- ── CITATION ── -->
+        <div class="quote-band">
+            <div class="quote-band-inner">
+                <blockquote class="reveal">
+                    Un personnage secondaire bien écrit en dit plus sur un film que n'importe quel héros.
+                </blockquote>
+                <cite class="reveal d1">— Principe de la chaîne</cite>
+            </div>
+        </div>
+
+        <!-- ── NOTRE CONCEPT ── -->
+        <section class="approach-section" id="concept">
+            <div class="section-header reveal">
+                <span class="pre">✦ Notre démarche</span>
+                <h2>NOTRE CONCEPT</h2>
+                <p>Pas de spoilers gratuits. Pas de classements. Une analyse narrative sincère des personnages qui comptent vraiment.</p>
+            </div>
+            <div class="approach-grid">
+                <div class="approach-card reveal d1">
+                    <div class="card-num" aria-hidden="true">01</div>
+                    <div class="card-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M12 2a5 5 0 1 0 0 10A5 5 0 0 0 12 2Zm0 12c-5.33 0-8 2.67-8 4v2h16v-2c0-1.33-2.67-4-8-4Z"/></svg>
+                    </div>
+                    <h3>Le personnage ignoré</h3>
+                    <p>Ces seconds rôles et soutiens discrets qui structurent les récits sans jamais prendre la lumière.</p>
+                </div>
+                <div class="approach-card reveal d2">
+                    <div class="card-num" aria-hidden="true">02</div>
+                    <div class="card-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
+                    </div>
+                    <h3>L'analyse narrative</h3>
+                    <p>Pourquoi ce personnage existe-t-il ? Que révèle-t-il du héros ? Que perdrait l'œuvre sans lui ?</p>
+                </div>
+                <div class="approach-card reveal d3">
+                    <div class="card-num" aria-hidden="true">03</div>
+                    <div class="card-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    </div>
+                    <h3>La passion cinéphile</h3>
+                    <p>Chaque épisode est une lettre d'amour au cinéma et à tous ceux qui fabriquent la magie dans l'ombre.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── VIDÉOS ── -->
+        <section class="related" id="videos">
+            <div class="related-header reveal">
+                <span class="pre">✦ Nos épisodes</span>
+                <h2>LES VIDÉOS</h2>
+            </div>
+            <div class="related-grid">
+
+                <a class="related-card reveal d1"
+                   href="https://www.youtube.com/@LHerosDeLOmbre/shorts"
+                   target="_blank" rel="noopener"
+                   aria-label="Regarder « Dans ta face » sur YouTube Shorts">
+                    <div class="related-card-thumb">
+                        <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&q=80"
+                             alt="Dans ta face — Short">
+                        <div class="card-overlay">
+                            <span class="card-ep">01</span>
+                            <div class="card-info">
+                                <h3>Dans ta face</h3>
+                                <span class="shorts-badge">Short · 2026</span>
+                            </div>
+                        </div>
+                        <div class="play-overlay" aria-hidden="true">
+                            <div class="play-circle-sm">
+                                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="related-card reveal d2"
+                   href="https://www.youtube.com/@LHerosDeLOmbre/shorts"
+                   target="_blank" rel="noopener"
+                   aria-label="Regarder « Florentino » sur YouTube Shorts">
+                    <div class="related-card-thumb">
+                        <img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?w=400&q=80"
+                             alt="Florentino — Short">
+                        <div class="card-overlay">
+                            <span class="card-ep">02</span>
+                            <div class="card-info">
+                                <h3>Florentino</h3>
+                                <span class="shorts-badge">Short · 2026</span>
+                            </div>
+                        </div>
+                        <div class="play-overlay" aria-hidden="true">
+                            <div class="play-circle-sm">
+                                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="related-card reveal d3"
+                   href="https://www.youtube.com/@LHerosDeLOmbre/shorts"
+                   target="_blank" rel="noopener"
+                   aria-label="Regarder « Flute » sur YouTube Shorts">
+                    <div class="related-card-thumb">
+                        <img src="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=400&q=80"
+                             alt="Flute — Short">
+                        <div class="card-overlay">
+                            <span class="card-ep">03</span>
+                            <div class="card-info">
+                                <h3>Flute</h3>
+                                <span class="shorts-badge">Short · 2026</span>
+                            </div>
+                        </div>
+                        <div class="play-overlay" aria-hidden="true">
+                            <div class="play-circle-sm">
+                                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+            <div class="related-cta reveal">
+                <a href="https://youtube.com/@LHerosDeLOmbre" target="_blank" rel="noopener">
+                    Voir toutes les vidéos
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+                </a>
+            </div>
+        </section>
+
+        <!-- ── CTA YOUTUBE ── -->
+        <div class="yt-cta">
+            <div class="yt-cta-inner reveal">
+                <div class="yt-cta-text">
+                    <span class="pre">✦ Rejoindre la communauté</span>
+                    <h2>Abonnez-vous à la chaîne</h2>
+                    <p>Nouveaux épisodes régulièrement. Personnages oubliés, analyses profondes, cinéma vivant.</p>
+                </div>
+                <a class="yt-cta-btn" href="https://youtube.com/@LHerosDeLOmbre" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg>
+                    S'abonner
+                </a>
+            </div>
+        </div>
+
+        <!-- ── FOOTER ── -->
+        <footer id="contact">
+            <div class="footer-top">
+                <div class="footer-col footer-brand">
+                    <div class="logo-mark">
+                        <span class="bar" aria-hidden="true"></span>Les héros de l'ombre
+                    </div>
+                    <p>Une chaîne YouTube dédiée aux personnages secondaires du cinéma et des séries — ceux sans qui rien ne tient vraiment.</p>
+                    <a href="contact.html" class="email-link">
+                        <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5v2Z"/></svg>
+                        Nous écrire
+                    </a>
+                    <div class="footer-social">
+                        <a href="https://youtube.com/@LHerosDeLOmbre" target="_blank" rel="noopener" aria-label="Notre chaîne YouTube (nouvel onglet)">
+                            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg>
+                        </a>
+                        <a href="https://twitter.com/LHerosDeLOmbre" target="_blank" rel="noopener" aria-label="Nous suivre sur X / Twitter (nouvel onglet)">
+                            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <a href="https://instagram.com/LHerosDeLOmbre" target="_blank" rel="noopener" aria-label="Nous suivre sur Instagram (nouvel onglet)">
+                            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8 0 3.2 0 3.6-.1 4.8-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1-3.2 0-3.6 0-4.8-.1-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12c0-3.2 0-3.6.1-4.8C2.4 3.9 4 2.3 7.2 2.3c1.2-.1 1.6-.1 4.8-.1Zm0-2.2C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12c0 3.3 0 3.7.1 4.9.2 4.4 2.6 6.8 7 7C8.3 24 8.7 24 12 24c3.3 0 3.7 0 4.9-.1 4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9 0-3.3 0-3.7-.1-4.9C23.7 2.7 21.3.3 16.9.1 15.7 0 15.3 0 12 0Zm0 5.8a6.2 6.2 0 1 0 0 12.4A6.2 6.2 0 0 0 12 5.8Zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.4-11.8a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88Z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>NAVIGATION</h4>
+                    <nav class="footer-menu" aria-label="Navigation footer">
+                        <a href="#hero">Accueil</a>
+                        <a href="#about">La chaîne</a>
+                        <a href="#concept">Notre concept</a>
+                        <a href="#videos">Vidéos</a>
+                        <a href="contact.html">Contact</a>
+                        <a href="mentions-legales.html">Mentions légales</a>
+                    </nav>
+                </div>
+            </div>
+            <div class="footer-bottom">Copyright © 2026 · LES HÉROS DE L'OMBRE — Tous droits réservés</div>
+        </footer>
+
+    </div>
+</div>
+
+<button class="floating-btn" id="backToTop" aria-label="Retour en haut de page">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>
+</button>
+
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentions légales — L'OMBRE</title>
+    <meta name="description" content="Mentions légales de la chaîne YouTube L'OMBRE.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    <style>
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        :root{
+            --red:#e84c3d;
+            --red-dk:#c0392b;
+            --black:#222;
+            --grey-dk:#444;
+            --grey:#777;
+            --grey-lt:#bbb;
+            --cream:#eeece6;
+            --white:#fff;
+            --border:#e3e0db;
+        }
+        html{scroll-behavior:smooth}
+        body{font-family:'Inter',sans-serif;font-size:14px;color:var(--black);background:var(--white);line-height:1.65}
+        img{display:block;max-width:100%}
+        a{color:inherit;text-decoration:none}
+        ul{list-style:none}
+
+        /* INTRO */
+        .page-intro{text-align:center;padding:2.5rem 1.5rem 1.8rem;position:relative}
+        .back-arrow{position:absolute;left:1.5rem;top:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--black);display:flex;align-items:center;justify-content:center;transition:background .2s}
+        .back-arrow:hover{background:var(--red)}
+        .back-arrow svg{width:16px;height:16px;fill:var(--white)}
+        .page-intro h1{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.35em;margin-bottom:.6rem}
+        .page-intro p{font-size:.85rem;color:var(--grey);max-width:520px;margin:0 auto}
+
+        .container{max-width:1100px;margin:0 auto;padding:0 1.5rem}
+
+        /* MINI BANNER (bande rouge fine façon "RELATED MOVIES") */
+        .mini-banner{background:var(--red);color:var(--white);text-align:center;padding:1.2rem;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.3em;display:flex;align-items:center;justify-content:center;gap:1rem}
+        .mini-banner::before,.mini-banner::after{content:'';width:40px;height:1px;background:rgba(255,255,255,.6)}
+
+        /* CONTENU PRINCIPAL */
+        .legal{display:grid;grid-template-columns:240px 1fr;gap:3rem;padding:3.5rem 0 4rem}
+
+        /* SOMMAIRE (sticky à gauche, façon liste poster) */
+        .toc{position:sticky;top:1.5rem;align-self:start;border-top:3px solid var(--red);padding-top:1rem}
+        .toc h3{font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.25em;color:var(--black);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid var(--border)}
+        .toc ol{counter-reset:item;list-style:none;display:flex;flex-direction:column;gap:.4rem}
+        .toc li{counter-increment:item;font-size:.75rem;color:var(--grey);position:relative;padding-left:1.8rem;line-height:1.4}
+        .toc li::before{content:counter(item,decimal-leading-zero);position:absolute;left:0;top:0;font-family:'Bebas Neue',sans-serif;color:var(--red);font-size:.75rem;letter-spacing:.1em}
+        .toc li a{transition:color .2s;display:block;padding:.2rem 0;border-bottom:1px solid transparent}
+        .toc li a:hover{color:var(--black);border-bottom-color:var(--red)}
+
+        /* SECTIONS de texte */
+        .legal-body section{margin-bottom:2.5rem;padding-bottom:2.5rem;border-bottom:1px solid var(--border)}
+        .legal-body section:last-child{border-bottom:none}
+        .legal-body h2{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.1em;margin-bottom:1rem;display:flex;align-items:baseline;gap:.8rem}
+        .legal-body h2 .num{font-size:.85rem;color:var(--red);letter-spacing:.15em;font-weight:400}
+        .legal-body p{font-size:.85rem;color:var(--grey-dk);margin-bottom:.9rem;line-height:1.7}
+        .legal-body p strong{color:var(--black);font-weight:600}
+        .legal-body ul{padding-left:1.4rem;list-style:disc;color:var(--grey-dk);margin-bottom:.9rem}
+        .legal-body ul li{font-size:.85rem;margin-bottom:.3rem;line-height:1.6}
+        .legal-body ul li::marker{color:var(--red)}
+        .legal-body a.link{color:var(--red);text-decoration:underline;font-weight:500}
+        .legal-body a.link:hover{color:var(--red-dk)}
+
+        /* ENCADRÉ INFO (façon "fiche identité") */
+        .legal-card{background:var(--cream);padding:1.5rem 1.8rem;margin:1.2rem 0;display:grid;grid-template-columns:1fr 1fr;gap:1rem 2rem}
+        .legal-card .field strong{display:block;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--grey-lt);margin-bottom:.25rem;font-weight:700}
+        .legal-card .field span{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.05em;color:var(--black)}
+
+        /* QUOTE BAND (réutilisée) */
+        .quote-band{background:var(--cream);text-align:center;padding:2.5rem 2rem}
+        .quote-band blockquote{font-family:'Playfair Display',serif;font-style:italic;font-size:1.05rem;color:var(--grey);max-width:680px;margin:0 auto .8rem}
+        .quote-band cite{font-size:.7rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--black);font-style:normal}
+
+        /* FOOTER (identique à index.html) */
+        footer{background:var(--white);position:relative}
+        .footer-top{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:2.5rem;padding:3rem 2.5rem;max-width:1100px;margin:0 auto}
+        .footer-col h4{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.25em;margin-bottom:1.2rem;padding-bottom:.5rem;border-bottom:1px solid var(--red)}
+        .logo-mark{display:flex;align-items:center;gap:.4rem;margin-bottom:1rem;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.25em}
+        .logo-mark .bar{display:inline-block;width:18px;height:8px;background:var(--black)}
+        .footer-brand p{font-size:.72rem;color:var(--grey);line-height:1.7;margin-bottom:1rem}
+        .footer-brand .tel{font-size:.7rem;color:var(--grey);margin-bottom:.6rem}
+        .footer-brand .tel strong{color:var(--black);margin-right:.4rem}
+        .footer-brand .email{font-size:.72rem;color:var(--red);font-weight:600;margin-bottom:1rem;display:inline-block;text-decoration:underline}
+        .footer-social{display:flex;gap:.7rem}
+        .footer-social a{color:var(--grey);transition:color .2s}
+        .footer-social a:hover{color:var(--red)}
+        .footer-social svg{width:14px;height:14px;fill:currentColor}
+        .newsletter-blurb{font-size:.72rem;color:var(--grey);line-height:1.6;margin-bottom:.9rem}
+        .newsletter-form{display:flex;flex-direction:column;gap:.4rem}
+        .newsletter-form input{border:1px solid var(--border);padding:.55rem .7rem;font-size:.72rem;font-family:inherit;outline:none}
+        .newsletter-form input:focus{border-color:var(--grey)}
+        .newsletter-form button{background:var(--red);color:white;border:none;padding:.55rem;font-family:'Bebas Neue',sans-serif;font-size:.8rem;letter-spacing:.25em;cursor:pointer;margin-top:.2rem}
+        .newsletter-form button:hover{background:var(--red-dk)}
+        .footer-quote blockquote{font-family:'Playfair Display',serif;font-style:italic;font-size:.85rem;color:var(--grey);line-height:1.5;margin-bottom:.8rem}
+        .footer-quote cite{font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--black);font-style:normal;display:block}
+        .footer-quote cite span{display:block;color:var(--grey);font-weight:400;letter-spacing:.15em;margin-top:.2rem}
+        .footer-menu{display:grid;grid-template-columns:1fr 1fr;gap:.5rem 1rem}
+        .footer-menu a{font-size:.72rem;color:var(--grey);transition:color .2s}
+        .footer-menu a:hover{color:var(--red)}
+        .footer-bottom{background:var(--red);color:rgba(255,255,255,.85);text-align:center;padding:.7rem;font-size:.6rem;letter-spacing:.18em}
+
+        .floating-btn{position:fixed;bottom:1.5rem;right:1.5rem;width:54px;height:54px;border-radius:50%;background:var(--black);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,.3);z-index:50;transition:transform .2s}
+        .floating-btn:hover{transform:translateY(-3px)}
+        .floating-btn svg{width:22px;height:22px;fill:var(--red)}
+
+        @media(max-width:900px){
+            .legal{grid-template-columns:1fr;gap:1.5rem}
+            .toc{position:static}
+            .footer-top{grid-template-columns:1fr 1fr;gap:2rem}
+        }
+        @media(max-width:580px){
+            .legal-card{grid-template-columns:1fr}
+            .footer-top{grid-template-columns:1fr}
+        }
+    </style>
+</head>
+<body>
+
+<!-- INTRO TITRE -->
+<div class="page-intro">
+    <a class="back-arrow" href="index.html" title="Retour à l'accueil">
+        <svg viewBox="0 0 24 24"><path d="M15.4 7.4L14 6l-6 6 6 6 1.4-1.4L10.8 12z"/></svg>
+    </a>
+    <h1>MENTIONS LÉGALES</h1>
+    <p>Informations légales relatives à la chaîne et au site L'OMBRE — conformément à la loi pour la confiance dans l'économie numérique.</p>
+</div>
+
+<!-- BANDE ROUGE FINE -->
+<div class="mini-banner">DERNIÈRE MISE À JOUR — 26 MAI 2026</div>
+
+<!-- CONTENU -->
+<div class="container">
+    <div class="legal">
+
+        <!-- SOMMAIRE -->
+        <aside class="toc">
+            <h3>SOMMAIRE</h3>
+            <ol>
+                <li><a href="#editeur">Éditeur du site</a></li>
+                <li><a href="#hebergement">Hébergement</a></li>
+                <li><a href="#propriete">Propriété intellectuelle</a></li>
+                <li><a href="#donnees">Données personnelles</a></li>
+                <li><a href="#cookies">Cookies</a></li>
+                <li><a href="#responsabilite">Responsabilité</a></li>
+                <li><a href="#droit">Droit applicable</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ol>
+        </aside>
+
+        <!-- CORPS DU TEXTE -->
+        <div class="legal-body">
+
+            <section id="editeur">
+                <h2><span class="num">01 /</span> Éditeur du site</h2>
+                <p>Le présent site est édité à titre personnel. Conformément aux dispositions de l'article 6 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique, les informations suivantes sont portées à la connaissance des utilisateurs :</p>
+                <div class="legal-card">
+                    <div class="field"><strong>Éditeur</strong><span>Les héros de l'ombre</span></div>
+                    <div class="field"><strong>Statut</strong><span>Particulier</span></div>
+                    <div class="field"><strong>Email</strong><span>lesoublies8@gmail.com</span></div>
+                    <div class="field"><strong>Téléphone</strong><span>00 00 00 00 00</span></div>
+                    <div class="field"><strong>Les héros de l'ombre</strong><span></span></div>
+                </div>
+            </section>
+
+            <section id="hebergement">
+                <h2><span class="num">02 /</span> Hébergement</h2>
+                <p>Ce site est hébergé par :</p>
+            </section>
+
+            <section id="propriete">
+                <h2><span class="num">03 /</span> Propriété intellectuelle</h2>
+                <p>L'ensemble des éléments présents sur ce site (textes, images, vidéos, montages, logo, charte graphique) est protégé par le droit d'auteur et le droit des marques. Toute reproduction, représentation, modification, publication ou adaptation, en tout ou partie, par quelque procédé que ce soit, est interdite sans autorisation écrite préalable.</p>
+                <ul>
+                    <li>Les vidéos de la chaîne YouTube <strong>Les héros de l'ombre</strong> demeurent la propriété exclusive de leurs auteurs.</li>
+                    <li>Les extraits cinématographiques et photogrammes utilisés relèvent du droit de courte citation à des fins critiques et pédagogiques (article L.122-5 du CPI).</li>
+                    <li>Toute utilisation non autorisée du contenu pourra faire l'objet de poursuites.</li>
+                </ul>
+            </section>
+
+            <section id="donnees">
+                <h2><span class="num">04 /</span> Données personnelles</h2>
+                <p>Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés du 6 janvier 1978 modifiée, vous disposez d'un droit d'accès, de rectification, d'opposition et de suppression des données vous concernant.</p>
+                <p>Les seules données collectées sur ce site le sont via le formulaire de newsletter (prénom, email) à des fins exclusives d'envoi d'actualités. Elles ne sont jamais cédées à des tiers.</p>
+                <p>Pour exercer vos droits, contactez : <a class="link" href="lesoublies8@gmail.com">contact@lombre.fr</a></p>
+            </section>
+
+            <section id="cookies">
+                <h2><span class="num">05 /</span> Cookies</h2>
+                <p>Ce site utilise des cookies à des fins de mesure d'audience (statistiques anonymisées). Aucun cookie publicitaire ou de pistage n'est déposé sans votre consentement explicite. Vous pouvez à tout moment refuser ou supprimer les cookies via les paramètres de votre navigateur.</p>
+            </section>
+
+            <section id="responsabilite">
+                <h2><span class="num">06 /</span> Responsabilité</h2>
+                <p>L'éditeur s'efforce de fournir des informations aussi précises que possible. Toutefois, il ne pourra être tenu responsable des erreurs, omissions ou résultats susceptibles d'être obtenus par un usage inapproprié des contenus.</p>
+                <p>Les liens externes mentionnés sur ce site sont fournis à titre indicatif. L'éditeur décline toute responsabilité quant au contenu des sites tiers vers lesquels ces liens redirigent.</p>
+            </section>
+
+            <section id="droit">
+                <h2><span class="num">07 /</span> Droit applicable</h2>
+                <p>Les présentes mentions légales sont soumises au <strong>droit français</strong>. En cas de litige, et après tentative de résolution amiable, les tribunaux français seront seuls compétents.</p>
+            </section>
+
+            <section id="contact">
+                <h2><span class="num">08 /</span> Contact</h2>
+                <p>Pour toute question relative aux présentes mentions légales, à la chaîne ou à une demande de partenariat, vous pouvez écrire à :</p>
+                <p><a class="link" href="lesoublies8@gmail.com.fr"></a></p>
+            </section>
+
+        </div>
+    </div>
+</div>
+
+<!-- QUOTE -->
+<div class="quote-band">
+    <blockquote>« Les détails qu'on ne voit pas sont souvent ceux qui font tenir l'ensemble. »</blockquote>
+    <cite>— Principe de la chaîne</cite>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-top">
+
+        <div class="footer-col footer-brand">
+            <div class="logo-mark">L<span class="bar"></span>OMBRE</div>
+            <p>rue digital campus<br>75011 Paris, France</p>
+            <div class="tel"><strong>TEL :</strong> 00 00 00 00 00</div>
+            <a href="mailto:contact@lombre.fr" class="email">Nous contacter</a>
+            <div class="footer-social">
+                <a href="#" title="YouTube"><svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg></a>
+                <a href="#" title="Twitter"><svg viewBox="0 0 24 24"><path d="M24 4.6a9.8 9.8 0 0 1-2.8.8 4.9 4.9 0 0 0 2.2-2.7 9.9 9.9 0 0 1-3.1 1.2 4.9 4.9 0 0 0-8.4 4.5A14 14 0 0 1 1.7 3.2 4.9 4.9 0 0 0 3.2 9.7a4.9 4.9 0 0 1-2.2-.6v.1a4.9 4.9 0 0 0 3.9 4.8 4.9 4.9 0 0 1-2.2.1 4.9 4.9 0 0 0 4.6 3.4A9.9 9.9 0 0 1 0 19.5a14 14 0 0 0 7.5 2.2c9.1 0 14-7.5 14-14v-.6A10 10 0 0 0 24 4.6Z"/></svg></a>
+                <a href="#" title="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8 0 3.2 0 3.6-.1 4.8-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1-3.2 0-3.6 0-4.8-.1-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12c0-3.2 0-3.6.1-4.8C2.4 3.9 4 2.3 7.2 2.3c1.2-.1 1.6-.1 4.8-.1Zm0-2.2C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12c0 3.3 0 3.7.1 4.9.2 4.4 2.6 6.8 7 7C8.3 24 8.7 24 12 24c3.3 0 3.7 0 4.9-.1 4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9 0-3.3 0-3.7-.1-4.9C23.7 2.7 21.3.3 16.9.1 15.7 0 15.3 0 12 0Zm0 5.8a6.2 6.2 0 1 0 0 12.4A6.2 6.2 0 0 0 12 5.8Zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8Z"/></svg></a>
+            </div>
+        </div>
+
+        <div class="footer-col">
+            <h4>NEWSLETTER</h4>
+            <p class="newsletter-blurb">Reste informé des dernières sorties vidéo en t'abonnant à notre newsletter mensuelle.</p>
+            <form class="newsletter-form">
+                <input type="text" placeholder="Prénom">
+                <input type="email" placeholder="Email">
+                <button type="submit">S'ABONNER</button>
+            </form>
+        </div>
+
+
+        <div class="footer-col">
+            <h4>MENU</h4>
+            <div class="footer-menu">
+                <a href="index.html">Accueil</a>
+                <a href="#">Vidéos</a>
+                <a href="#">Thématiques</a>
+                <a href="#">À propos</a>
+                <a href="#">Contact</a>
+                <a href="mentions-legales.html">Mentions</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">Copyright © 2026 · L'OMBRE</div>
+</footer>
+
+<a href="#" class="floating-btn" title="Retour en haut">
+    <svg viewBox="0 0 24 24"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>
+</a>
+
+</body>
+</html>
