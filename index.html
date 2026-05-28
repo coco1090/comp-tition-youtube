@@ -663,7 +663,7 @@
         <div class="grid [grid-template-columns:210px_1fr_1.1fr] gap-10 max-[1024px]:[grid-template-columns:190px_1fr] max-[680px]:grid-cols-1">
 
             <div class="reveal [aspect-ratio:2/3] bg-[#111] overflow-hidden shadow-[12px_18px_50px_rgba(0,0,0,.25)] relative group max-[680px]:hidden">
-                <img src="miniature.JPG"
+                <img src="miniature.principale.jpg"
                      alt="Affiche Les Héros de l'Ombre"
                      class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
                 <div class="absolute inset-0 border border-white/[.06] pointer-events-none"></div>
@@ -692,10 +692,10 @@
                 <a class="relative [aspect-ratio:16/9] overflow-hidden cursor-pointer bg-black block group"
                    href="https://www.youtube.com/@LesH%C3%A9rosDelOmbre"
                    target="_blank" rel="noopener noreferrer"
-                   aria-label="Voir la dernière vidéo sur YouTube (nouvel onglet)">
-                    <img src="https://images.unsplash.com/photo-1574267432553-4b4628081c31?w=800&q=80"
-                         alt="Miniature de la dernière vidéo"
-                         class="w-full h-full object-cover transition duration-[400ms] group-hover:scale-105 group-hover:opacity-60">
+                   aria-label="Voir « Portrait du parfait mentor » sur YouTube (nouvel onglet)">
+                    <img src="miniature.principale.jpg"
+                         alt="Doc Hudson — Cars, le mentor dans l'ombre"
+                         class="w-full h-full object-contain transition duration-[400ms] group-hover:opacity-60">
                     <div class="absolute inset-0 flex items-center justify-center z-[2]" aria-hidden="true">
                         <div class="w-14 h-14 rounded-full bg-c-red flex items-center justify-center shadow-[0_8px_28px_rgba(232,76,61,.5)] transition duration-[250ms] group-hover:scale-[1.14] group-hover:shadow-[0_12px_40px_rgba(232,76,61,.7)]">
                             <svg viewBox="0 0 24 24" class="w-[22px] h-[22px] fill-white ml-[3px]"><path d="M8 5v14l11-7z"/></svg>
@@ -705,11 +705,16 @@
                         <svg viewBox="0 0 24 24" class="w-3 h-3 fill-white"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
                     </div>
                 </a>
-                <div class="flex flex-wrap gap-[.4rem] mt-[.3rem]">
-                    <span class="text-[.72rem] tracking-[.1em] uppercase text-c-gry border border-c-bdr px-[.6rem] py-[.25rem] transition hover:text-c-red hover:border-c-red cursor-default">Cinéma</span>
-                    <span class="text-[.72rem] tracking-[.1em] uppercase text-c-gry border border-c-bdr px-[.6rem] py-[.25rem] transition hover:text-c-red hover:border-c-red cursor-default">Personnages</span>
+                <!-- Titre + résumé de la vidéo -->
+                <div class="mt-[.1rem]">
+                    <h3 class="font-bebas text-[1.1rem] tracking-[.07em] text-c-blk leading-snug mb-[.5rem]">PORTRAIT DU PARFAIT MENTOR</h3>
+                    <p class="text-[.8rem] text-c-gry leading-[1.7]">Il était champion. Trois fois. Puis il a tout perdu en une fraction de seconde — et personne ne l'a revu sur un circuit. Ce vieux mécanicien grincheux cache quelque chose que <em class="text-c-glt2 not-italic">McQueen ne comprendra que trop tard</em>… ou peut-être juste à temps.</p>
+                </div>
+                <div class="flex flex-wrap gap-[.4rem]">
+                    <span class="text-[.72rem] tracking-[.1em] uppercase text-c-gry border border-c-bdr px-[.6rem] py-[.25rem] transition hover:text-c-red hover:border-c-red cursor-default">Cars</span>
+                    <span class="text-[.72rem] tracking-[.1em] uppercase text-c-gry border border-c-bdr px-[.6rem] py-[.25rem] transition hover:text-c-red hover:border-c-red cursor-default">Doc Hudson</span>
+                    <span class="text-[.72rem] tracking-[.1em] uppercase text-c-gry border border-c-bdr px-[.6rem] py-[.25rem] transition hover:text-c-red hover:border-c-red cursor-default">Mentor</span>
                     <span class="text-[.72rem] tracking-[.1em] uppercase text-c-gry border border-c-bdr px-[.6rem] py-[.25rem] transition hover:text-c-red hover:border-c-red cursor-default">Analyse</span>
-                    <span class="text-[.72rem] tracking-[.1em] uppercase text-c-gry border border-c-bdr px-[.6rem] py-[.25rem] transition hover:text-c-red hover:border-c-red cursor-default">Shorts</span>
                 </div>
             </div>
 
@@ -764,7 +769,7 @@
             <h2 class="font-sign text-[3.2rem] tracking-[.02em] leading-none">NOUS DÉCOUVRIR</h2>
         </div>
 
-        <div class="grid grid-cols-3 gap-[1.2rem] max-w-[820px] mx-auto max-[680px]:grid-cols-2 max-[680px]:gap-[.7rem] max-[400px]:grid-cols-1 max-[400px]:gap-[.5rem]">
+        <div class="grid grid-cols-2 gap-[1.2rem] max-w-[600px] mx-auto max-[480px]:grid-cols-1 max-[480px]:gap-[.6rem]">
 
             <a class="related-card reveal d1 block relative transition-transform duration-[400ms] hover:-translate-y-[6px]"
                href="https://www.youtube.com/@LesH%C3%A9rosDelOmbre/shorts" target="_blank" rel="noopener noreferrer"
@@ -797,27 +802,6 @@
                         <span class="font-bebas text-[1.6rem] text-white/[.1] tracking-[.05em] leading-none self-end">02</span>
                         <div>
                             <h3 class="font-bebas text-[1.05rem] tracking-[.1em] leading-[1.2] text-c-wht mb-[.3rem]">Florentino</h3>
-                            <span class="shorts-badge text-[.5rem] tracking-[.18em] uppercase text-white/[.45] font-semibold flex items-center gap-[.4rem]">Short · 2026</span>
-                        </div>
-                    </div>
-                    <div class="play-overlay absolute inset-0 z-[3] flex items-center justify-center pointer-events-none">
-                        <div class="play-circle-sm w-[50px] h-[50px] rounded-full bg-c-red flex items-center justify-center shadow-[0_6px_28px_rgba(232,76,61,.55)]">
-                            <svg viewBox="0 0 24 24" class="w-5 h-5 fill-white ml-[3px]"><path d="M8 5v14l11-7z"/></svg>
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-            <a class="related-card reveal d3 block relative transition-transform duration-[400ms] hover:-translate-y-[6px]"
-               href="https://www.youtube.com/@LesH%C3%A9rosDelOmbre/shorts" target="_blank" rel="noopener noreferrer"
-               aria-label="Regarder « Flute » sur YouTube Shorts">
-                <div class="related-card-thumb [aspect-ratio:9/16] bg-[#1a1a1a] overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=400&q=80" alt="Flute — Short"
-                         class="w-full h-full object-cover transition duration-[550ms]">
-                    <div class="card-gradient absolute inset-0 z-[2] bg-gradient-to-t from-black/[.92] via-black/[.3] to-transparent flex flex-col justify-between p-[.9rem_.85rem] pointer-events-none transition-all duration-300">
-                        <span class="font-bebas text-[1.6rem] text-white/[.1] tracking-[.05em] leading-none self-end">03</span>
-                        <div>
-                            <h3 class="font-bebas text-[1.05rem] tracking-[.1em] leading-[1.2] text-c-wht mb-[.3rem]">Flute</h3>
                             <span class="shorts-badge text-[.5rem] tracking-[.18em] uppercase text-white/[.45] font-semibold flex items-center gap-[.4rem]">Short · 2026</span>
                         </div>
                     </div>
