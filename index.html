@@ -9,7 +9,7 @@
     <meta name="description" content="Chaîne YouTube dédiée aux personnages secondaires du cinéma et des séries. Analyse, passion, cinéphilie.">
 
     <!-- ── SÉCURITÉ ── -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline' https://fonts.googleapis.com https://cdn.tailwindcss.com; font-src https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data: blob:; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; connect-src 'self' https://cdn.tailwindcss.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline' https://fonts.googleapis.com https://cdn.tailwindcss.com; font-src https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data: blob:; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; connect-src 'self' https://cdn.tailwindcss.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self'; form-action 'self' mailto:;">
     <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
     <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), interest-cohort=()">
     <meta name="robots" content="index, follow">
@@ -431,28 +431,18 @@
     <!-- ── LA CHAÎNE ── -->
     <section class="bg-c-wht px-[clamp(1.5rem,5vw,5rem)] pt-14 pb-16 max-w-[1360px] mx-auto max-[680px]:px-[1.4rem] max-[680px]:pt-8" id="about">
 
-        <div class="flex justify-between items-start flex-wrap gap-6 border-b border-c-bdr pb-8 mb-10 max-[680px]:flex-col max-[680px]:gap-3">
-            <div class="reveal">
-                <h2 class="font-sign text-[3.2rem] tracking-[.02em] leading-none max-[680px]:text-[2.1rem]">LES HÉROS DE L'OMBRE</h2>
-                <div class="mt-3 flex gap-2 flex-wrap">
-                    <span class="text-[.75rem] tracking-[.13em] uppercase bg-c-crm text-c-gry px-[.8rem] py-[.28rem] border border-c-bdr transition hover:bg-c-red hover:text-c-wht hover:border-c-red cursor-default">Cinéma</span>
-                    <span class="text-[.75rem] tracking-[.13em] uppercase bg-c-crm text-c-gry px-[.8rem] py-[.28rem] border border-c-bdr transition hover:bg-c-red hover:text-c-wht hover:border-c-red cursor-default">Séries</span>
-                    <span class="text-[.75rem] tracking-[.13em] uppercase bg-c-crm text-c-gry px-[.8rem] py-[.28rem] border border-c-bdr transition hover:bg-c-red hover:text-c-wht hover:border-c-red cursor-default">Analyse</span>
-                </div>
-                <div class="mt-3 text-c-red tracking-[.35em] text-[.85rem] border-t border-c-bdr pt-[.6rem] inline-block" aria-label="5 étoiles">★ ★ ★ ★ ★</div>
-            </div>
-            <div class="about-header-actions reveal d2 flex items-center gap-[.6rem] flex-wrap max-[680px]:justify-start">
-                <a id="shareBtn" role="button" tabindex="0"
-                   class="flex items-center gap-[.45rem] text-[.65rem] tracking-[.15em] uppercase px-[1.1rem] py-[.55rem] border border-c-blk bg-c-blk text-c-wht transition hover:bg-c-red hover:border-c-red cursor-pointer">
-                    Partager
-                    <svg viewBox="0 0 24 24" class="w-[11px] h-[11px] fill-current" aria-hidden="true"><path d="M18 16a3 3 0 0 0-2.4 1.2l-7.3-4.3a3 3 0 0 0 0-1.8l7.3-4.3a3 3 0 1 0-1-1.7L7.4 9.4a3 3 0 1 0 0 5.2l7.3 4.3A3 3 0 1 0 18 16Z"/></svg>
-                </a>
-                <a href="https://www.youtube.com/@LesH%C3%A9rosDelOmbre" target="_blank" rel="noopener noreferrer"
-                   class="flex items-center gap-[.45rem] text-[.65rem] tracking-[.15em] uppercase px-[1.1rem] py-[.55rem] border border-c-bdr transition hover:text-c-wht hover:border-c-red hover:bg-c-red">
-                    Chaîne officielle
-                    <svg viewBox="0 0 24 24" class="w-[11px] h-[11px] fill-current" aria-hidden="true"><path d="M14 3v2h3.6l-9.8 9.8 1.4 1.4L19 6.4V10h2V3z"/></svg>
-                </a>
-            </div>
+
+        <div class="flex justify-end items-center gap-[.6rem] flex-wrap border-b border-c-bdr pb-6 mb-10">
+            <a id="shareBtn" role="button" tabindex="0"
+               class="flex items-center gap-[.45rem] text-[.65rem] tracking-[.15em] uppercase px-[1.1rem] py-[.55rem] border border-c-blk bg-c-blk text-c-wht transition hover:bg-c-red hover:border-c-red cursor-pointer">
+                Partager
+                <svg viewBox="0 0 24 24" class="w-[11px] h-[11px] fill-current" aria-hidden="true"><path d="M18 16a3 3 0 0 0-2.4 1.2l-7.3-4.3a3 3 0 0 0 0-1.8l7.3-4.3a3 3 0 1 0-1-1.7L7.4 9.4a3 3 0 1 0 0 5.2l7.3 4.3A3 3 0 1 0 18 16Z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/@LesH%C3%A9rosDelOmbre" target="_blank" rel="noopener noreferrer"
+               class="flex items-center gap-[.45rem] text-[.65rem] tracking-[.15em] uppercase px-[1.1rem] py-[.55rem] border border-c-bdr transition hover:text-c-wht hover:border-c-red hover:bg-c-red">
+                Chaîne officielle
+                <svg viewBox="0 0 24 24" class="w-[11px] h-[11px] fill-current" aria-hidden="true"><path d="M14 3v2h3.6l-9.8 9.8 1.4 1.4L19 6.4V10h2V3z"/></svg>
+            </a>
         </div>
 
         <!-- ── LE GÉNÉRIQUE ── -->
@@ -662,10 +652,10 @@
 
         <div class="grid [grid-template-columns:210px_1fr_1.1fr] gap-10 max-[1024px]:[grid-template-columns:190px_1fr] max-[680px]:grid-cols-1">
 
-            <div class="reveal [aspect-ratio:2/3] bg-[#111] overflow-hidden shadow-[12px_18px_50px_rgba(0,0,0,.25)] relative group max-[680px]:hidden">
-                <img src="miniature.principale.jpg"
-                     alt="Affiche Les Héros de l'Ombre"
-                     class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
+            <div class="reveal [aspect-ratio:1/1] bg-[#111] overflow-hidden shadow-[12px_18px_50px_rgba(0,0,0,.25)] relative group max-[680px]:hidden">
+                <img src="PHOTO-2026-05-28-14-46-15%202.jpg"
+                     alt="L'équipe Les Héros de l'Ombre en salle de cinéma"
+                     class="w-full h-full object-cover object-center transition duration-700 group-hover:scale-105">
                 <div class="absolute inset-0 border border-white/[.06] pointer-events-none"></div>
             </div>
 
@@ -771,47 +761,39 @@
 
         <div class="grid grid-cols-2 gap-[1.2rem] max-w-[600px] mx-auto max-[480px]:grid-cols-1 max-[480px]:gap-[.6rem]">
 
-            <a class="related-card reveal d1 block relative transition-transform duration-[400ms] hover:-translate-y-[6px]"
-               href="https://www.youtube.com/@LesH%C3%A9rosDelOmbre/shorts" target="_blank" rel="noopener noreferrer"
-               aria-label="Regarder « Dans ta face » sur YouTube Shorts">
-                <div class="related-card-thumb [aspect-ratio:9/16] bg-[#1a1a1a] overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&q=80" alt="Dans ta face — Short"
-                         class="w-full h-full object-cover transition duration-[550ms] group-hover:scale-[1.08]">
-                    <div class="card-gradient absolute inset-0 z-[2] bg-gradient-to-t from-black/[.92] via-black/[.3] to-transparent flex flex-col justify-between p-[.9rem_.85rem] pointer-events-none transition-all duration-300">
-                        <span class="font-bebas text-[1.6rem] text-white/[.1] tracking-[.05em] leading-none self-end">01</span>
-                        <div>
-                            <h3 class="font-bebas text-[1.05rem] tracking-[.1em] leading-[1.2] text-c-wht mb-[.3rem]">Dans ta face</h3>
-                            <span class="shorts-badge text-[.5rem] tracking-[.18em] uppercase text-white/[.45] font-semibold flex items-center gap-[.4rem]">Short · 2026</span>
-                        </div>
-                    </div>
-                    <div class="play-overlay absolute inset-0 z-[3] flex items-center justify-center pointer-events-none">
-                        <div class="play-circle-sm w-[50px] h-[50px] rounded-full bg-c-red flex items-center justify-center shadow-[0_6px_28px_rgba(232,76,61,.55)]">
-                            <svg viewBox="0 0 24 24" class="w-5 h-5 fill-white ml-[3px]"><path d="M8 5v14l11-7z"/></svg>
-                        </div>
-                    </div>
+            <div class="related-card reveal d1 block relative">
+                <div class="related-card-thumb [aspect-ratio:9/16] bg-[#1a1a1a] overflow-hidden relative">
+                    <iframe
+                        src="https://www.youtube.com/embed/47yOI2ntUP0?rel=0&modestbranding=1"
+                        title="Making off : Cars — Short Les Héros de l'Ombre"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen
+                        loading="lazy"
+                        class="absolute inset-0 w-full h-full border-0">
+                    </iframe>
                 </div>
-            </a>
+                <div class="pt-[.55rem] px-[.1rem]">
+                    <h3 class="font-bebas text-[1.05rem] tracking-[.1em] leading-[1.2] text-c-wht mb-[.2rem]">Making off : Cars</h3>
+                    <span class="shorts-badge text-[.5rem] tracking-[.18em] uppercase text-white/[.45] font-semibold flex items-center gap-[.4rem]">Short · 2026</span>
+                </div>
+            </div>
 
-            <a class="related-card reveal d2 block relative transition-transform duration-[400ms] hover:-translate-y-[6px]"
-               href="https://www.youtube.com/@LesH%C3%A9rosDelOmbre/shorts" target="_blank" rel="noopener noreferrer"
-               aria-label="Regarder « Florentino » sur YouTube Shorts">
-                <div class="related-card-thumb [aspect-ratio:9/16] bg-[#1a1a1a] overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?w=400&q=80" alt="Florentino — Short"
-                         class="w-full h-full object-cover transition duration-[550ms]">
-                    <div class="card-gradient absolute inset-0 z-[2] bg-gradient-to-t from-black/[.92] via-black/[.3] to-transparent flex flex-col justify-between p-[.9rem_.85rem] pointer-events-none transition-all duration-300">
-                        <span class="font-bebas text-[1.6rem] text-white/[.1] tracking-[.05em] leading-none self-end">02</span>
-                        <div>
-                            <h3 class="font-bebas text-[1.05rem] tracking-[.1em] leading-[1.2] text-c-wht mb-[.3rem]">Florentino</h3>
-                            <span class="shorts-badge text-[.5rem] tracking-[.18em] uppercase text-white/[.45] font-semibold flex items-center gap-[.4rem]">Short · 2026</span>
-                        </div>
-                    </div>
-                    <div class="play-overlay absolute inset-0 z-[3] flex items-center justify-center pointer-events-none">
-                        <div class="play-circle-sm w-[50px] h-[50px] rounded-full bg-c-red flex items-center justify-center shadow-[0_6px_28px_rgba(232,76,61,.55)]">
-                            <svg viewBox="0 0 24 24" class="w-5 h-5 fill-white ml-[3px]"><path d="M8 5v14l11-7z"/></svg>
-                        </div>
-                    </div>
+            <div class="related-card reveal d2 block relative">
+                <div class="related-card-thumb [aspect-ratio:9/16] bg-[#1a1a1a] overflow-hidden relative">
+                    <iframe
+                        src="https://www.youtube.com/embed/47yOI2ntUP0?rel=0&modestbranding=1"
+                        title="Micro trottoir : quel est votre personnage préféré ? — Short Les Héros de l'Ombre"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen
+                        loading="lazy"
+                        class="absolute inset-0 w-full h-full border-0">
+                    </iframe>
                 </div>
-            </a>
+                <div class="pt-[.55rem] px-[.1rem]">
+                    <h3 class="font-bebas text-[1.05rem] tracking-[.1em] leading-[1.2] text-c-wht mb-[.2rem]">Micro trottoir : quel est votre personnage préféré ?</h3>
+                    <span class="shorts-badge text-[.5rem] tracking-[.18em] uppercase text-white/[.45] font-semibold flex items-center gap-[.4rem]">Short · 2026</span>
+                </div>
+            </div>
 
         </div>
 
