@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Les Héros de l'Ombre — Ces personnages secondaires qui font les grandes œuvres</title>
+    <link rel="icon" type="image/svg+xml" href="logo.svg">
+    <link rel="apple-touch-icon" href="logo.svg">
     <meta name="description" content="Chaîne YouTube dédiée aux personnages secondaires du cinéma et des séries. Analyse, passion, cinéphilie.">
 
     <!-- ── SÉCURITÉ ── -->
@@ -152,13 +154,57 @@
     /* Video section: stronger gradient on hover */
     .related-card:hover .card-gradient{background:linear-gradient(to top,rgba(0,0,0,.96) 0%,rgba(0,0,0,.45) 40%,transparent 72%)}
 
-    /* ── Équipe — hover ── */
-    .team-card{transition:border-color .22s,padding-left .22s}
-    .team-card:hover{border-color:rgba(139,32,16,.45);padding-left:.6rem}
-    .team-num{transition:opacity .22s,color .22s}
-    .team-card:hover .team-num{opacity:1;color:#8B2010}
-    .team-name{transition:color .22s}
-    .team-card:hover .team-name{color:#8B2010}
+    /* ── Générique — clapperboard 3D ── */
+    .crew-scene{perspective:1000px;height:100%}
+    .crew-card{
+        position:relative;height:100%;
+        transform-style:preserve-3d;
+        transition:transform .75s cubic-bezier(.22,1,.36,1);
+        cursor:pointer;
+    }
+    .crew-card.flipped{transform:rotateY(180deg)}
+    .crew-front,.crew-back{
+        position:absolute;inset:0;
+        backface-visibility:hidden;
+        -webkit-backface-visibility:hidden;
+    }
+    .crew-back{
+        transform:rotateY(180deg);
+        background:radial-gradient(ellipse at 50% 20%,rgba(216,150,52,.22) 0%,transparent 65%),#241B14;
+        border:1px solid rgba(216,150,52,.28);
+    }
+    .clapper-stripe{
+        height:26px;flex-shrink:0;
+        background:repeating-linear-gradient(-45deg,
+            #fdf8f2 0,#fdf8f2 6px,
+            #1a1208 6px,#1a1208 12px);
+    }
+    .fh{width:7px;height:10px;border-radius:2px;background:rgba(255,255,255,.14);display:inline-block;flex-shrink:0}
+
+    /* ── Boutique ── */
+    /* ── T-shirt cards ── */
+    .tshirt-card{transition:box-shadow .32s,transform .32s cubic-bezier(.22,1,.36,1)}
+    .tshirt-card:hover{transform:translateY(-5px);box-shadow:0 20px 56px rgba(0,0,0,.72)}
+    .size-btn{transition:background .15s,color .15s,border-color .15s;background:transparent;font-family:inherit;cursor:pointer}
+    .size-btn:hover:not(.sel){border-color:rgba(181,168,152,.55);color:#fdf8f2}
+    .size-btn.sel{background:#8B2010;border-color:#8B2010;color:#fdf8f2}
+    .add-btn{transition:background .18s,transform .18s;cursor:pointer;border:none;padding:0}
+    .add-btn:hover{background:#661508;transform:scale(1.12)}
+    @keyframes shake{0%,100%{transform:translateX(0) scale(1)}20%,60%{transform:translateX(-3px) scale(1)}40%,80%{transform:translateX(3px) scale(1)}}
+    .size-btn.shake{animation:shake .38s ease}
+
+    /* ── Panier drawer ── */
+    .cart-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:9000;opacity:0;pointer-events:none;transition:opacity .38s}
+    .cart-backdrop.open{opacity:1;pointer-events:all}
+    .cart-drawer{position:fixed;top:0;right:0;width:min(440px,100vw);height:100dvh;background:#1a1208;z-index:9001;transform:translateX(105%);transition:transform .42s cubic-bezier(.22,1,.36,1);display:flex;flex-direction:column;border-left:1px solid #3a2e24}
+    .cart-drawer.open{transform:translateX(0)}
+    .cart-qty-btn{width:30px;height:30px;border:1px solid rgba(58,46,36,.8);background:transparent;color:#b5a898;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s,border-color .15s,color .15s;flex-shrink:0;font-size:.95rem;line-height:1}
+    .cart-qty-btn:hover{background:#8B2010;border-color:#8B2010;color:#fdf8f2}
+    .cart-remove{background:transparent;border:none;cursor:pointer;color:#8a7a6a;transition:color .18s;font-size:.75rem;line-height:1;padding:2px}
+    .cart-remove:hover{color:#8B2010}
+    .cart-checkout-btn{display:block;width:100%;text-align:center;background:#8B2010;font-family:"Bebas Neue",sans-serif;letter-spacing:.25em;color:#fdf8f2;padding:1rem;font-size:.9rem;border:none;cursor:pointer;transition:background .18s}
+    .cart-checkout-btn:hover{background:#661508}
+    .cart-badge{width:18px;height:18px;background:#8B2010;border-radius:50%;font-size:.55rem;font-weight:700;color:#fff;display:none;align-items:center;justify-content:center;font-family:Inter,sans-serif;position:absolute;top:-5px;right:-5px;line-height:1}
 
     /* ── FAQ accordion ── */
     .faq-answer{overflow:hidden;max-height:0;transition:max-height .5s cubic-bezier(.22,1,.36,1)}
@@ -184,24 +230,32 @@
 <!-- ═══ NAV STICKY (post-hero) ═══ -->
 <nav class="sticky-nav" id="stickyNav" aria-label="Navigation principale" aria-hidden="true">
     <div class="max-w-[1360px] mx-auto px-10 h-[58px] flex items-center justify-between max-[680px]:px-5">
-        <a href="https://www.youtube.com/@LesH%C3%A9rosDelOmbre" target="_blank" rel="noopener noreferrer"
-           class="flex items-center flex-shrink-0 group"
-           aria-label="Les Héros de l'Ombre — Voir la chaîne YouTube (nouvel onglet)">
-            <img src="logo.svg" alt="Les Héros de l'Ombre" class="w-9 h-9 flex-shrink-0 transition duration-300 group-hover:scale-110 group-hover:-rotate-[5deg]">
-        </a>
+
+        <!-- Gauche : burger (mobile) + logo -->
+        <div class="flex items-center gap-3">
+            <button class="flex flex-col gap-[5px] p-[6px] cursor-pointer hover:opacity-80 transition"
+                    id="stickyBurger" aria-label="Ouvrir le menu">
+                <span class="block w-[22px] h-[1.5px] bg-white/[.75]" aria-hidden="true"></span>
+                <span class="block w-[22px] h-[1.5px] bg-white/[.75]" aria-hidden="true"></span>
+                <span class="block w-[22px] h-[1.5px] bg-white/[.75]" aria-hidden="true"></span>
+            </button>
+            <a href="https://www.youtube.com/@LesH%C3%A9rosDelOmbre" target="_blank" rel="noopener noreferrer"
+               class="flex items-center flex-shrink-0 group"
+               aria-label="Les Héros de l'Ombre — Voir la chaîne YouTube (nouvel onglet)">
+                <img src="logo.svg" alt="Les Héros de l'Ombre" class="w-9 h-9 flex-shrink-0 transition duration-300 group-hover:scale-110 group-hover:-rotate-[5deg]">
+            </a>
+        </div>
+
+        <!-- Droite : liens desktop -->
         <div class="flex items-center gap-8 max-[680px]:hidden">
             <a href="#about"  class="font-bebas text-[.85rem] tracking-[.18em] text-c-wht/[.6] transition hover:text-c-gold">La chaîne</a>
-            <a href="#videos" class="font-bebas text-[.85rem] tracking-[.18em] text-c-wht/[.6] transition hover:text-c-gold">Explorer</a>
-            <a href="#faq"    class="font-bebas text-[.85rem] tracking-[.18em] text-c-wht/[.6] transition hover:text-c-gold">FAQ</a>
+            <a href="#videos"   class="font-bebas text-[.85rem] tracking-[.18em] text-c-wht/[.6] transition hover:text-c-gold">Découvrir</a>
+            <a href="#boutique" class="font-bebas text-[.85rem] tracking-[.18em] text-c-wht/[.6] transition hover:text-c-gold">Boutique</a>
+            <a href="#faq"      class="font-bebas text-[.85rem] tracking-[.18em] text-c-wht/[.6] transition hover:text-c-gold">FAQ</a>
             <a href="contact.html" class="font-bebas text-[.85rem] tracking-[.18em] bg-c-red text-c-wht px-[1.2rem] py-[.32rem] transition hover:bg-c-rdk">Contact</a>
         </div>
-        <!-- Burger sur mobile (forward au burgerBtn de la hero-nav) -->
-        <button class="hidden max-[680px]:flex flex-col gap-[5px] p-[6px] cursor-pointer hover:opacity-80 transition"
-                id="stickyBurger" aria-label="Ouvrir le menu">
-            <span class="block w-[22px] h-[1.5px] bg-white/[.75]" aria-hidden="true"></span>
-            <span class="block w-[22px] h-[1.5px] bg-white/[.75]" aria-hidden="true"></span>
-            <span class="block w-[22px] h-[1.5px] bg-white/[.75]" aria-hidden="true"></span>
-        </button>
+
+
     </div>
 </nav>
 
@@ -271,14 +325,21 @@
 
         <nav class="flex items-center justify-between px-10 py-[1.4rem] absolute top-0 left-0 right-0 z-10 text-c-wht max-[680px]:px-5 max-[680px]:py-3" aria-label="Navigation principale">
 
-            <!-- Logo seul à gauche -->
-            <a class="flex items-center flex-shrink-0 group"
-               href="https://www.youtube.com/@LesH%C3%A9rosDelOmbre" target="_blank" rel="noopener noreferrer"
-               aria-label="Les Héros de l'Ombre — Voir la chaîne YouTube (nouvel onglet)">
-                <img src="logo.svg" alt="Les Héros de l'Ombre" class="w-10 h-10 flex-shrink-0 drop-shadow-[0_2px_12px_rgba(0,0,0,.55)] transition duration-[350ms] group-hover:scale-[1.12] group-hover:-rotate-[6deg]">
-            </a>
+            <!-- Gauche : burger + logo -->
+            <div class="flex items-center gap-4">
+                <button class="flex flex-col gap-[5px] p-[6px] cursor-pointer hover:opacity-80 transition" id="burgerBtn" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileMenu">
+                    <span class="block w-[22px] h-[1.5px] bg-white/[.8]" aria-hidden="true"></span>
+                    <span class="block w-[22px] h-[1.5px] bg-white/[.8]" aria-hidden="true"></span>
+                    <span class="block w-[22px] h-[1.5px] bg-white/[.8]" aria-hidden="true"></span>
+                </button>
+                <a class="flex items-center flex-shrink-0 group"
+                   href="https://www.youtube.com/@LesH%C3%A9rosDelOmbre" target="_blank" rel="noopener noreferrer"
+                   aria-label="Les Héros de l'Ombre — Voir la chaîne YouTube (nouvel onglet)">
+                    <img src="logo.svg" alt="Les Héros de l'Ombre" class="w-10 h-10 flex-shrink-0 drop-shadow-[0_2px_12px_rgba(0,0,0,.55)] transition duration-[350ms] group-hover:scale-[1.12] group-hover:-rotate-[6deg]">
+                </a>
+            </div>
 
-            <!-- Droite : réseaux sociaux + recherche + burger -->
+            <!-- Droite : réseaux sociaux + recherche -->
             <div class="flex items-center gap-[1.4rem]">
                 <a href="https://www.youtube.com/@LesH%C3%A9rosDelOmbre" target="_blank" rel="noopener noreferrer" aria-label="Notre chaîne YouTube (nouvel onglet)" class="text-white/[.72] transition hover:text-c-wht max-[680px]:hidden">
                     <svg viewBox="0 0 24 24" class="w-4 h-4 fill-current block" aria-hidden="true" focusable="false"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg>
@@ -292,11 +353,6 @@
                 <button id="searchBtn" aria-label="Ouvrir la recherche" class="text-white/[.72] transition hover:text-c-wht flex items-center cursor-pointer">
                     <svg viewBox="0 0 24 24" class="w-4 h-4 fill-current" aria-hidden="true" focusable="false"><path d="M21.7 20.3l-4.4-4.4a8.5 8.5 0 1 0-1.4 1.4l4.4 4.4 1.4-1.4Zm-11.2-3.3a6.5 6.5 0 1 1 0-13 6.5 6.5 0 0 1 0 13Z"/></svg>
                 </button>
-                <button class="flex flex-col gap-[5px] p-[6px] cursor-pointer hover:opacity-80 transition" id="burgerBtn" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileMenu">
-                    <span class="block w-[22px] h-[1.5px] bg-white/[.8]" aria-hidden="true"></span>
-                    <span class="block w-[22px] h-[1.5px] bg-white/[.8]" aria-hidden="true"></span>
-                    <span class="block w-[22px] h-[1.5px] bg-white/[.8]" aria-hidden="true"></span>
-                </button>
             </div>
 
         </nav>
@@ -306,7 +362,7 @@
              alt="Salle de cinéma dans l'obscurité">
 
         <div class="absolute bottom-0 left-0 right-0 z-[5] text-c-wht px-12 pb-14 max-[680px]:px-[1.4rem] max-[680px]:pb-10 pointer-events-none">
-            <span class="anim-tag inline-flex items-center gap-2 text-[.58rem] tracking-[.3em] uppercase bg-c-red px-[.9rem] py-[.3rem] mb-5 pointer-events-none">✦ Chaîne YouTube · Cinéma &amp; Séries</span>
+            <span class="anim-tag inline-flex items-center gap-2 text-[.72rem] tracking-[.28em] uppercase bg-c-red px-[.9rem] py-[.3rem] mb-5 pointer-events-none">✦ Chaîne YouTube · Cinéma &amp; Séries</span>
             <h1 class="anim-h1 font-sign text-[clamp(3.8rem,7vw,7rem)] tracking-[.02em] leading-[.95] [text-shadow:0_4px_28px_rgba(0,0,0,.7)] max-[680px]:text-[clamp(2.6rem,9vw,4rem)]">
                 Les Héros<br><em class="font-cormorant italic font-semibold text-c-gold text-[.82em] tracking-[.06em]">de l'Ombre</em>
             </h1>
@@ -351,50 +407,206 @@
             </div>
         </div>
 
-        <!-- ── NOTRE ÉQUIPE ── -->
-        <div class="reveal d1 mb-10">
-            <div class="flex items-center gap-4 mb-7">
-                <span class="font-bebas text-[.8rem] tracking-[.38em] text-c-glt2">NOTRE ÉQUIPE</span>
-                <div class="flex-1 h-px bg-c-bdr"></div>
-                <span class="text-[.62rem] tracking-[.2em] uppercase text-c-glt2 opacity-60">9 membres</span>
-            </div>
-            <div class="grid grid-cols-3 gap-x-8 gap-y-[.1rem] max-[860px]:grid-cols-2 max-[480px]:grid-cols-1">
+        <!-- ── LE GÉNÉRIQUE ── -->
+        <div class="reveal d1 generique-wrap mb-12">
 
-                <div class="team-card reveal d1 flex items-center gap-[.7rem] py-[.7rem] border-b border-c-bdr">
-                    <span class="team-num font-bebas text-[.62rem] tracking-[.1em] text-c-glt2 opacity-40 w-5 flex-shrink-0">01</span>
-                    <span class="team-name font-bebas text-[1.05rem] tracking-[.08em] text-c-blk">FOFANA Karifala</span>
+            <!-- En-tête -->
+            <div class="flex items-center gap-4 mb-8">
+                <span class="font-bebas text-[.72rem] tracking-[.46em] text-c-glt2 uppercase">Notre Équipe</span>
+                <div class="flex-1 h-px bg-c-bdr"></div>
+                <span class="text-[.7rem] tracking-[.2em] text-c-glt2 opacity-50 uppercase">Survoler · Révéler</span>
+            </div>
+
+            <!-- Grille clapperboard 3×3 -->
+            <div class="grid grid-cols-3 gap-[.75rem] max-[620px]:grid-cols-2 max-[380px]:grid-cols-1">
+
+                <!-- 01 — FOFANA -->
+                <div class="crew-scene-wrap h-[178px]">
+                    <div class="crew-scene"><div class="crew-card">
+                        <div class="crew-front bg-c-dk2 border border-c-bdr flex flex-col overflow-hidden">
+                            <div class="clapper-stripe"></div>
+                            <div class="flex gap-[4px] px-[9px] py-[4px] bg-c-drk/[.8] border-b border-c-bdr/[.5]">
+                                <span class="fh"></span><span class="fh"></span><span class="fh"></span><span class="fh"></span><span class="fh"></span><span class="fh"></span>
+                            </div>
+                            <div class="flex-1 flex flex-col justify-between p-[.6rem_.85rem]">
+                                <span class="font-bebas text-[2.2rem] leading-none text-c-bdr/[.55]">01</span>
+                                <p class="font-bebas text-[.75rem] tracking-[.18em] text-c-glt2/[.8] uppercase leading-snug">Réalisation</p>
+                            </div>
+                        </div>
+                        <div class="crew-back flex flex-col items-center justify-center text-center px-3">
+                            <span class="text-c-gold text-[.9rem] mb-[.45rem] opacity-70">✦</span>
+                            <span class="font-bebas text-[1.35rem] tracking-[.07em] text-c-wht leading-[1.15] mb-[.5rem]">FOFANA<br>Karifala</span>
+                            <span class="text-[.75rem] tracking-[.22em] uppercase text-c-gold/[.8]">Directeur de la réalisation</span>
+                        </div>
+                    </div></div>
                 </div>
-                <div class="team-card reveal d2 flex items-center gap-[.7rem] py-[.7rem] border-b border-c-bdr">
-                    <span class="team-num font-bebas text-[.62rem] tracking-[.1em] text-c-glt2 opacity-40 w-5 flex-shrink-0">02</span>
-                    <span class="team-name font-bebas text-[1.05rem] tracking-[.08em] text-c-blk">LOUZALA Kelly</span>
+
+                <!-- 02 — SI YOUCEF -->
+                <div class="crew-scene-wrap h-[178px]">
+                    <div class="crew-scene"><div class="crew-card">
+                        <div class="crew-front bg-c-dk2 border border-c-bdr flex flex-col overflow-hidden">
+                            <div class="clapper-stripe"></div>
+                            <div class="flex gap-[4px] px-[9px] py-[4px] bg-c-drk/[.8] border-b border-c-bdr/[.5]">
+                                <span class="fh"></span><span class="fh"></span><span class="fh"></span><span class="fh"></span><span class="fh"></span><span class="fh"></span>
+                            </div>
+                            <div class="flex-1 flex flex-col justify-between p-[.6rem_.85rem]">
+                                <span class="font-bebas text-[2.2rem] leading-none text-c-bdr/[.55]">02</span>
+                                <p class="font-bebas text-[.75rem] tracking-[.18em] text-c-glt2/[.8] uppercase leading-snug">Direction artistique</p>
+                            </div>
+                        </div>
+                        <div class="crew-back flex flex-col items-center justify-center text-center px-3">
+                            <span class="text-c-gold text-[.9rem] mb-[.45rem] opacity-70">✦</span>
+                            <span class="font-bebas text-[1.35rem] tracking-[.07em] text-c-wht leading-[1.15] mb-[.5rem]">SI YOUCEF<br>Rayan</span>
+                            <span class="text-[.75rem] tracking-[.22em] uppercase text-c-gold/[.8]">Direction artistique</span>
+                        </div>
+                    </div></div>
                 </div>
-                <div class="team-card reveal d3 flex items-center gap-[.7rem] py-[.7rem] border-b border-c-bdr">
-                    <span class="team-num font-bebas text-[.62rem] tracking-[.1em] text-c-glt2 opacity-40 w-5 flex-shrink-0">03</span>
-                    <span class="team-name font-bebas text-[1.05rem] tracking-[.08em] text-c-blk">SI YOUCEF Rayan</span>
+
+                <!-- 03 — AARABAT -->
+                <div class="crew-scene-wrap h-[178px]">
+                    <div class="crew-scene"><div class="crew-card">
+                        <div class="crew-front bg-c-dk2 border border-c-bdr flex flex-col overflow-hidden">
+                            <div class="clapper-stripe"></div>
+                            <div class="flex gap-[4px] px-[9px] py-[4px] bg-c-drk/[.8] border-b border-c-bdr/[.5]">
+                                <span class="fh"></span><span class="fh"></span><span class="fh"></span><span class="fh"></span><span class="fh"></span><span class="fh"></span>
+                            </div>
+                            <div class="flex-1 flex flex-col justify-between p-[.6rem_.85rem]">
+                                <span class="font-bebas text-[2.2rem] leading-none text-c-bdr/[.55]">03</span>
+                                <p class="font-bebas text-[.75rem] tracking-[.18em] text-c-glt2/[.8] uppercase leading-snug">Éditorial</p>
+                            </div>
+                        </div>
+                        <div class="crew-back flex flex-col items-center justify-center text-center px-3">
+                            <span class="text-c-gold text-[.9rem] mb-[.45rem] opacity-70">✦</span>
+                            <span class="font-bebas text-[1.35rem] tracking-[.07em] text-c-wht leading-[1.15] mb-[.5rem]">AARABAT<br>Mohammed</span>
+                            <span class="text-[.75rem] tracking-[.22em] uppercase text-c-gold/[.8]">Responsable éditorial</span>
+                        </div>
+                    </div></div>
                 </div>
-                <div class="team-card reveal d1 flex items-center gap-[.7rem] py-[.7rem] border-b border-c-bdr">
-                    <span class="team-num font-bebas text-[.62rem] tracking-[.1em] text-c-glt2 opacity-40 w-5 flex-shrink-0">04</span>
-                    <span class="team-name font-bebas text-[1.05rem] tracking-[.08em] text-c-blk">AARABAT Mohammed</span>
+
+                <!-- 04 — LOUZALA -->
+                <div class="crew-scene-wrap h-[178px]">
+                    <div class="crew-scene"><div class="crew-card">
+                        <div class="crew-front bg-c-dk2 border border-c-bdr flex flex-col overflow-hidden">
+                            <div class="clapper-stripe"></div>
+                            <div class="flex gap-[4px] px-[9px] py-[4px] bg-c-drk/[.8] border-b border-c-bdr/[.5]">
+                                <span class="fh"></span><span class="fh"></span><span class="fh"></span><span class="fh"></span><span class="fh"></span><span class="fh"></span>
+                            </div>
+                            <div class="flex-1 flex flex-col justify-between p-[.6rem_.85rem]">
+                                <span class="font-bebas text-[2.2rem] leading-none text-c-bdr/[.55]">04</span>
+                                <p class="font-bebas text-[.75rem] tracking-[.18em] text-c-glt2/[.8] uppercase leading-snug">Montage</p>
+                            </div>
+                        </div>
+                        <div class="crew-back flex flex-col items-center justify-center text-center px-3">
+                            <span class="text-c-gold text-[.9rem] mb-[.45rem] opacity-70">✦</span>
+                            <span class="font-bebas text-[1.35rem] tracking-[.07em] text-c-wht leading-[1.15] mb-[.5rem]">LOUZALA<br>Kelly</span>
+                            <span class="text-[.75rem] tracking-[.22em] uppercase text-c-gold/[.8]">Monteuse</span>
+                        </div>
+                    </div></div>
                 </div>
-                <div class="team-card reveal d2 flex items-center gap-[.7rem] py-[.7rem] border-b border-c-bdr">
-                    <span class="team-num font-bebas text-[.62rem] tracking-[.1em] text-c-glt2 opacity-40 w-5 flex-shrink-0">05</span>
-                    <span class="team-name font-bebas text-[1.05rem] tracking-[.08em] text-c-blk">VANISCOTTE Erwan</span>
+
+                <!-- 05 — VANISCOTTE -->
+                <div class="crew-scene-wrap h-[178px]">
+                    <div class="crew-scene"><div class="crew-card">
+                        <div class="crew-front bg-c-dk2 border border-c-bdr flex flex-col overflow-hidden">
+                            <div class="clapper-stripe"></div>
+                            <div class="flex gap-[4px] px-[9px] py-[4px] bg-c-drk/[.8] border-b border-c-bdr/[.5]">
+                                <span class="fh"></span><span class="fh"></span><span class="fh"></span><span class="fh"></span><span class="fh"></span><span class="fh"></span>
+                            </div>
+                            <div class="flex-1 flex flex-col justify-between p-[.6rem_.85rem]">
+                                <span class="font-bebas text-[2.2rem] leading-none text-c-bdr/[.55]">05</span>
+                                <p class="font-bebas text-[.75rem] tracking-[.18em] text-c-glt2/[.8] uppercase leading-snug">Régie technique</p>
+                            </div>
+                        </div>
+                        <div class="crew-back flex flex-col items-center justify-center text-center px-3">
+                            <span class="text-c-gold text-[.9rem] mb-[.45rem] opacity-70">✦</span>
+                            <span class="font-bebas text-[1.35rem] tracking-[.07em] text-c-wht leading-[1.15] mb-[.5rem]">VANISCOTTE<br>Erwan</span>
+                            <span class="text-[.75rem] tracking-[.22em] uppercase text-c-gold/[.8]">Régie technique</span>
+                        </div>
+                    </div></div>
                 </div>
-                <div class="team-card reveal d3 flex items-center gap-[.7rem] py-[.7rem] border-b border-c-bdr">
-                    <span class="team-num font-bebas text-[.62rem] tracking-[.1em] text-c-glt2 opacity-40 w-5 flex-shrink-0">06</span>
-                    <span class="team-name font-bebas text-[1.05rem] tracking-[.08em] text-c-blk">LE CLÉZIO Mael</span>
+
+                <!-- 06 — DUMONTET -->
+                <div class="crew-scene-wrap h-[178px]">
+                    <div class="crew-scene"><div class="crew-card">
+                        <div class="crew-front bg-c-dk2 border border-c-bdr flex flex-col overflow-hidden">
+                            <div class="clapper-stripe"></div>
+                            <div class="flex gap-[4px] px-[9px] py-[4px] bg-c-drk/[.8] border-b border-c-bdr/[.5]">
+                                <span class="fh"></span><span class="fh"></span><span class="fh"></span><span class="fh"></span><span class="fh"></span><span class="fh"></span>
+                            </div>
+                            <div class="flex-1 flex flex-col justify-between p-[.6rem_.85rem]">
+                                <span class="font-bebas text-[2.2rem] leading-none text-c-bdr/[.55]">06</span>
+                                <p class="font-bebas text-[.75rem] tracking-[.18em] text-c-glt2/[.8] uppercase leading-snug">Contenu & Stratégie</p>
+                            </div>
+                        </div>
+                        <div class="crew-back flex flex-col items-center justify-center text-center px-3">
+                            <span class="text-c-gold text-[.9rem] mb-[.45rem] opacity-70">✦</span>
+                            <span class="font-bebas text-[1.35rem] tracking-[.07em] text-c-wht leading-[1.15] mb-[.5rem]">DUMONTET<br>Corentin</span>
+                            <span class="text-[.75rem] tracking-[.22em] uppercase text-c-gold/[.8]">Contenu & Stratégie</span>
+                        </div>
+                    </div></div>
                 </div>
-                <div class="team-card reveal d1 flex items-center gap-[.7rem] py-[.7rem] border-b border-c-bdr max-[480px]:border-b">
-                    <span class="team-num font-bebas text-[.62rem] tracking-[.1em] text-c-glt2 opacity-40 w-5 flex-shrink-0">07</span>
-                    <span class="team-name font-bebas text-[1.05rem] tracking-[.08em] text-c-blk">ABADA Sethi</span>
+
+                <!-- 07 — LE CLÉZIO -->
+                <div class="crew-scene-wrap h-[178px]">
+                    <div class="crew-scene"><div class="crew-card">
+                        <div class="crew-front bg-c-dk2 border border-c-bdr flex flex-col overflow-hidden">
+                            <div class="clapper-stripe"></div>
+                            <div class="flex gap-[4px] px-[9px] py-[4px] bg-c-drk/[.8] border-b border-c-bdr/[.5]">
+                                <span class="fh"></span><span class="fh"></span><span class="fh"></span><span class="fh"></span><span class="fh"></span><span class="fh"></span>
+                            </div>
+                            <div class="flex-1 flex flex-col justify-between p-[.6rem_.85rem]">
+                                <span class="font-bebas text-[2.2rem] leading-none text-c-bdr/[.55]">07</span>
+                                <p class="font-bebas text-[.75rem] tracking-[.18em] text-c-glt2/[.8] uppercase leading-snug">Son</p>
+                            </div>
+                        </div>
+                        <div class="crew-back flex flex-col items-center justify-center text-center px-3">
+                            <span class="text-c-gold text-[.9rem] mb-[.45rem] opacity-70">✦</span>
+                            <span class="font-bebas text-[1.35rem] tracking-[.07em] text-c-wht leading-[1.15] mb-[.5rem]">LE CLÉZIO<br>Mael</span>
+                            <span class="text-[.75rem] tracking-[.22em] uppercase text-c-gold/[.8]">Ingénieur du son</span>
+                        </div>
+                    </div></div>
                 </div>
-                <div class="team-card reveal d2 flex items-center gap-[.7rem] py-[.7rem] border-b border-c-bdr">
-                    <span class="team-num font-bebas text-[.62rem] tracking-[.1em] text-c-glt2 opacity-40 w-5 flex-shrink-0">08</span>
-                    <span class="team-name font-bebas text-[1.05rem] tracking-[.08em] text-c-blk">DUMONTET Corentin</span>
+
+                <!-- 08 — ABADA -->
+                <div class="crew-scene-wrap h-[178px]">
+                    <div class="crew-scene"><div class="crew-card">
+                        <div class="crew-front bg-c-dk2 border border-c-bdr flex flex-col overflow-hidden">
+                            <div class="clapper-stripe"></div>
+                            <div class="flex gap-[4px] px-[9px] py-[4px] bg-c-drk/[.8] border-b border-c-bdr/[.5]">
+                                <span class="fh"></span><span class="fh"></span><span class="fh"></span><span class="fh"></span><span class="fh"></span><span class="fh"></span>
+                            </div>
+                            <div class="flex-1 flex flex-col justify-between p-[.6rem_.85rem]">
+                                <span class="font-bebas text-[2.2rem] leading-none text-c-bdr/[.55]">08</span>
+                                <p class="font-bebas text-[.75rem] tracking-[.18em] text-c-glt2/[.8] uppercase leading-snug">Recherche & Script</p>
+                            </div>
+                        </div>
+                        <div class="crew-back flex flex-col items-center justify-center text-center px-3">
+                            <span class="text-c-gold text-[.9rem] mb-[.45rem] opacity-70">✦</span>
+                            <span class="font-bebas text-[1.35rem] tracking-[.07em] text-c-wht leading-[1.15] mb-[.5rem]">ABADA<br>Sethi</span>
+                            <span class="text-[.75rem] tracking-[.22em] uppercase text-c-gold/[.8]">Recherche & Script</span>
+                        </div>
+                    </div></div>
                 </div>
-                <div class="team-card reveal d3 flex items-center gap-[.7rem] py-[.7rem]">
-                    <span class="team-num font-bebas text-[.62rem] tracking-[.1em] text-c-glt2 opacity-40 w-5 flex-shrink-0">09</span>
-                    <span class="team-name font-bebas text-[1.05rem] tracking-[.08em] text-c-blk">MAGALHAES Soraya</span>
+
+                <!-- 09 — MAGALHAES -->
+                <div class="crew-scene-wrap h-[178px]">
+                    <div class="crew-scene"><div class="crew-card">
+                        <div class="crew-front bg-c-dk2 border border-c-bdr flex flex-col overflow-hidden">
+                            <div class="clapper-stripe"></div>
+                            <div class="flex gap-[4px] px-[9px] py-[4px] bg-c-drk/[.8] border-b border-c-bdr/[.5]">
+                                <span class="fh"></span><span class="fh"></span><span class="fh"></span><span class="fh"></span><span class="fh"></span><span class="fh"></span>
+                            </div>
+                            <div class="flex-1 flex flex-col justify-between p-[.6rem_.85rem]">
+                                <span class="font-bebas text-[2.2rem] leading-none text-c-bdr/[.55]">09</span>
+                                <p class="font-bebas text-[.75rem] tracking-[.18em] text-c-glt2/[.8] uppercase leading-snug">Community</p>
+                            </div>
+                        </div>
+                        <div class="crew-back flex flex-col items-center justify-center text-center px-3">
+                            <span class="text-c-gold text-[.9rem] mb-[.45rem] opacity-70">✦</span>
+                            <span class="font-bebas text-[1.35rem] tracking-[.07em] text-c-wht leading-[1.15] mb-[.5rem]">MAGALHAES<br>Soraya</span>
+                            <span class="text-[.75rem] tracking-[.22em] uppercase text-c-gold/[.8]">Community Manager</span>
+                        </div>
+                    </div></div>
                 </div>
 
             </div>
@@ -411,24 +623,24 @@
 
             <div class="reveal d1 flex flex-col gap-[1.3rem]">
                 <div class="pb-5 border-b border-c-bdr">
-                    <strong class="block text-[.65rem] tracking-[.22em] uppercase text-c-glt2 mb-[.55rem]">Créateur</strong>
-                    <p class="text-[.92rem] text-c-gry leading-[1.7]">Les Héros de l'Ombre</p>
+                    <strong class="block text-[.78rem] tracking-[.2em] uppercase text-c-glt2 mb-[.6rem]">Créateur</strong>
+                    <p class="text-[1.05rem] text-c-gry leading-[1.7]">Les Héros de l'Ombre</p>
                 </div>
                 <div class="pb-5 border-b border-c-bdr">
-                    <strong class="block text-[.65rem] tracking-[.22em] uppercase text-c-glt2 mb-[.55rem]">Format</strong>
-                    <p class="text-[.92rem] text-c-gry leading-[1.7]">YouTube Shorts · 4 minutes pour captiver</p>
+                    <strong class="block text-[.78rem] tracking-[.2em] uppercase text-c-glt2 mb-[.6rem]">Format</strong>
+                    <p class="text-[1.05rem] text-c-gry leading-[1.7]">YouTube Shorts · 4 minutes pour captiver</p>
                 </div>
                 <div>
-                    <strong class="block text-[.65rem] tracking-[.22em] uppercase text-c-glt2 mb-[.55rem]">Sujet</strong>
-                    <p class="info-text text-[.92rem] text-c-gry leading-[1.75]" id="infoText">
+                    <strong class="block text-[.78rem] tracking-[.2em] uppercase text-c-glt2 mb-[.6rem]">Sujet</strong>
+                    <p class="info-text text-[1.05rem] text-c-gry leading-[1.8]" id="infoText">
                         Chaque épisode plonge dans l'histoire d'un personnage secondaire du cinéma ou des séries — ces visages qu'on oublie de citer mais sans qui rien ne tient. Analyse de la construction narrative, du jeu d'acteur et du rôle essentiel de ces Héros de l'Ombre dans les grandes œuvres. Une chaîne pour les vrais cinéphiles qui savent que le génie se cache dans les détails.
                     </p>
-                    <button class="inline-flex items-center gap-[.4rem] mt-[.75rem] bg-c-blk text-c-wht px-4 py-[.55rem] font-bebas text-[.75rem] tracking-[.2em] transition hover:bg-c-red cursor-pointer" id="readMoreBtn">Lire plus</button>
+                    <button class="inline-flex items-center gap-[.4rem] mt-[.75rem] bg-c-blk text-c-wht px-4 py-[.55rem] font-bebas text-[.85rem] tracking-[.18em] transition hover:bg-c-red cursor-pointer" id="readMoreBtn">Lire plus</button>
                 </div>
             </div>
 
             <div class="reveal d2 flex flex-col gap-[1.1rem] max-[1024px]:hidden">
-                <div class="trailer-label text-[.62rem] tracking-[.25em] uppercase font-bold flex items-center gap-[.55rem]">Dernière vidéo</div>
+                <div class="trailer-label text-[.76rem] tracking-[.22em] uppercase font-bold flex items-center gap-[.55rem]">Dernière vidéo</div>
                 <a class="relative [aspect-ratio:16/9] overflow-hidden cursor-pointer bg-black block group"
                    href="https://www.youtube.com/@LesH%C3%A9rosDelOmbre"
                    target="_blank" rel="noopener noreferrer"
@@ -446,10 +658,10 @@
                     </div>
                 </a>
                 <div class="flex flex-wrap gap-[.4rem] mt-[.3rem]">
-                    <span class="text-[.58rem] tracking-[.12em] uppercase text-c-gry border border-c-bdr px-[.55rem] py-[.2rem] transition hover:text-c-red hover:border-c-red cursor-default">Cinéma</span>
-                    <span class="text-[.58rem] tracking-[.12em] uppercase text-c-gry border border-c-bdr px-[.55rem] py-[.2rem] transition hover:text-c-red hover:border-c-red cursor-default">Personnages</span>
-                    <span class="text-[.58rem] tracking-[.12em] uppercase text-c-gry border border-c-bdr px-[.55rem] py-[.2rem] transition hover:text-c-red hover:border-c-red cursor-default">Analyse</span>
-                    <span class="text-[.58rem] tracking-[.12em] uppercase text-c-gry border border-c-bdr px-[.55rem] py-[.2rem] transition hover:text-c-red hover:border-c-red cursor-default">Shorts</span>
+                    <span class="text-[.72rem] tracking-[.1em] uppercase text-c-gry border border-c-bdr px-[.6rem] py-[.25rem] transition hover:text-c-red hover:border-c-red cursor-default">Cinéma</span>
+                    <span class="text-[.72rem] tracking-[.1em] uppercase text-c-gry border border-c-bdr px-[.6rem] py-[.25rem] transition hover:text-c-red hover:border-c-red cursor-default">Personnages</span>
+                    <span class="text-[.72rem] tracking-[.1em] uppercase text-c-gry border border-c-bdr px-[.6rem] py-[.25rem] transition hover:text-c-red hover:border-c-red cursor-default">Analyse</span>
+                    <span class="text-[.72rem] tracking-[.1em] uppercase text-c-gry border border-c-bdr px-[.6rem] py-[.25rem] transition hover:text-c-red hover:border-c-red cursor-default">Shorts</span>
                 </div>
             </div>
 
@@ -462,26 +674,26 @@
             <div class="font-bebas text-[3.4rem] tracking-[.04em] text-c-gold leading-none flex items-baseline justify-center gap-[.1rem] mb-[.55rem] max-[680px]:text-[2.6rem]">
                 <span data-target="1000">0</span>
             </div>
-            <span class="text-[.65rem] tracking-[.22em] uppercase text-c-wht/[.4]">Abonnés</span>
+            <span class="text-[.8rem] tracking-[.2em] uppercase text-c-wht/[.4]">Abonnés</span>
         </div>
         <div class="stat-item reveal d1 py-10 px-8 text-center border-r border-white/[.07] max-[680px]:py-8 max-[680px]:px-5">
             <div class="font-bebas text-[3.4rem] tracking-[.04em] text-c-gold leading-none flex items-baseline justify-center gap-[.1rem] mb-[.55rem] max-[680px]:text-[2.6rem]">
                 <span data-target="4" data-suffix="+">0</span>
             </div>
-            <span class="text-[.65rem] tracking-[.22em] uppercase text-c-wht/[.4]">Épisodes</span>
+            <span class="text-[.8rem] tracking-[.2em] uppercase text-c-wht/[.4]">Épisodes</span>
         </div>
         <div class="stat-item reveal d2 py-10 px-8 text-center border-r border-white/[.07] max-[680px]:py-8 max-[680px]:px-5">
             <div class="font-bebas text-[3.4rem] tracking-[.04em] text-c-gold leading-none flex items-baseline justify-center gap-[.1rem] mb-[.55rem] max-[680px]:text-[2.6rem]">
                 <span data-target="30000">0</span>
             </div>
-            <span class="text-[.65rem] tracking-[.22em] uppercase text-c-wht/[.4]">Vues totales</span>
+            <span class="text-[.8rem] tracking-[.2em] uppercase text-c-wht/[.4]">Vues totales</span>
         </div>
         <div class="stat-item reveal d3 py-10 px-8 text-center max-[680px]:py-8 max-[680px]:px-5">
             <div class="font-bebas text-[3.4rem] tracking-[.04em] text-c-gold leading-none flex items-baseline justify-center gap-[.1rem] mb-[.55rem] max-[680px]:text-[2.6rem]" aria-label="4 minutes pour tout savoir">
                 <span data-target="4" data-suffix="">0</span>
                 <span class="text-[1.6rem] opacity-[.45] tracking-[.06em] ml-[.1rem]" aria-hidden="true">min</span>
             </div>
-            <span class="text-[.65rem] tracking-[.22em] uppercase text-c-wht/[.4]">Pour captiver</span>
+            <span class="text-[.8rem] tracking-[.2em] uppercase text-c-wht/[.4]">Pour captiver</span>
         </div>
     </div>
 
@@ -500,8 +712,8 @@
     <!-- ── VIDÉOS ── -->
     <section class="bg-c-blk text-c-wht px-[clamp(1.5rem,5vw,4rem)] pt-[clamp(3rem,6vw,5rem)] pb-[clamp(2rem,4vw,3.5rem)] max-[680px]:px-[1.4rem] max-[680px]:pt-10" id="videos">
         <div class="reveal text-center mb-10">
-            <span class="block text-[.58rem] tracking-[.35em] uppercase text-c-gold mb-3">✦ Nos épisodes</span>
-            <h2 class="font-sign text-[3.2rem] tracking-[.02em] leading-none">LES VIDÉOS</h2>
+            <span class="block text-[.65rem] tracking-[.35em] uppercase text-c-gold mb-3">✦ La chaîne</span>
+            <h2 class="font-sign text-[3.2rem] tracking-[.02em] leading-none">NOUS DÉCOUVRIR</h2>
         </div>
 
         <div class="grid grid-cols-3 gap-[1.2rem] max-w-[820px] mx-auto max-[680px]:grid-cols-2 max-[680px]:gap-[.7rem] max-[400px]:gap-[.5rem]">
@@ -580,11 +792,249 @@
         </div>
     </section>
 
+    <!-- ── BOUTIQUE ── -->
+    <section class="bg-[#0d0a07] text-c-wht px-[clamp(1.5rem,5vw,4rem)] pt-[clamp(3rem,6vw,5rem)] pb-[clamp(2.5rem,5vw,4.5rem)] max-[680px]:px-[1.4rem] max-[680px]:pt-10" id="boutique">
+        <div class="max-w-[1260px] mx-auto">
+
+            <!-- En-tête -->
+            <div class="reveal flex items-start justify-between gap-6 mb-10 max-[680px]:flex-col">
+                <div>
+                    <span class="block text-[.72rem] tracking-[.38em] uppercase text-c-gold mb-3">✦ Boutique officielle</span>
+                    <h2 class="font-bebas text-[4.8rem] leading-[.9] tracking-[.02em] mb-3 max-[680px]:text-[3rem]">GOODIES</h2>
+                    <p class="text-[.85rem] text-c-gry leading-[1.6] max-w-[360px]">Des pièces pensées pour celles et ceux qui regardent le cinéma autrement.</p>
+                </div>
+                <button id="cartToggle" class="relative flex-shrink-0 flex items-center gap-3 border border-c-bdr px-5 py-[.85rem] bg-c-dk2/[.7] cursor-pointer transition hover:border-c-gold/[.45]" aria-label="Ouvrir le panier">
+                    <svg viewBox="0 0 24 24" class="w-5 h-5 text-c-glt2 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007Z"/></svg>
+                    <div>
+                        <span class="font-bebas text-[.9rem] tracking-[.2em] block leading-tight">PANIER</span>
+                        <span id="cartLabel" class="text-[.72rem] text-c-gry">0 article · 0,00€</span>
+                    </div>
+                    <span id="cartBadge" class="cart-badge" aria-live="polite">0</span>
+                </button>
+            </div>
+
+            <!-- Grille 4 T-shirts -->
+            <div class="grid grid-cols-4 gap-[.7rem] max-[1024px]:grid-cols-2 max-[460px]:grid-cols-1 mb-10">
+
+                <!-- 01 — RÔLE DISCRET (dark) -->
+                <div class="tshirt-card reveal d1 border border-c-bdr/[.5] overflow-hidden" data-product="RÔLE DISCRET" data-price="29.90">
+                    <div class="relative bg-[#0d0b09]" style="aspect-ratio:3/3.6">
+                        <img src="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=400&q=50"
+                             alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover opacity-[.18] select-none pointer-events-none">
+                        <svg class="absolute inset-0 w-full h-full opacity-[.05] text-white" viewBox="0 0 200 200" fill="currentColor" aria-hidden="true"><path d="M65,8 L5,48 L35,58 L35,188 L165,188 L165,58 L195,48 L135,8 Q118,30 100,30 Q82,30 65,8Z"/></svg>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+                            <span class="text-[.62rem] tracking-[.28em] uppercase text-c-gold/[.65] mb-4">✦ Les Héros de l'Ombre ✦</span>
+                            <p class="font-bebas text-[2rem] leading-[.9] tracking-[.04em] text-white">LES HÉROS</p>
+                            <p class="font-bebas text-[2rem] leading-[.9] tracking-[.04em] text-c-red">DE L'OMBRE</p>
+                            <span class="text-[.6rem] tracking-[.22em] uppercase text-white/[.3] mt-4">La chaîne · Cinéma &amp; Séries</span>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/[.55] to-transparent pointer-events-none"></div>
+                    </div>
+                    <div class="bg-c-dk2 p-[.85rem_.95rem]">
+                        <div class="flex items-center justify-between mb-[.15rem]">
+                            <h3 class="font-bebas text-[1.05rem] tracking-[.08em]">RÔLE DISCRET</h3>
+                            <span class="font-bebas text-[1rem] text-c-gold">29,90€</span>
+                        </div>
+                        <p class="text-[.72rem] tracking-[.18em] uppercase text-c-gry mb-[.65rem]">T-Shirt Unisexe</p>
+                        <div class="size-row flex items-center gap-[.28rem] flex-wrap">
+                            <button class="size-btn font-bebas text-[.8rem] tracking-[.05em] border border-c-bdr/[.55] px-[.5rem] py-[.22rem] text-c-glt2">S</button>
+                            <button class="size-btn font-bebas text-[.8rem] tracking-[.05em] border border-c-bdr/[.55] px-[.5rem] py-[.22rem] text-c-glt2">M</button>
+                            <button class="size-btn font-bebas text-[.8rem] tracking-[.05em] border border-c-bdr/[.55] px-[.5rem] py-[.22rem] text-c-glt2">L</button>
+                            <button class="size-btn font-bebas text-[.8rem] tracking-[.05em] border border-c-bdr/[.55] px-[.5rem] py-[.22rem] text-c-glt2">XL</button>
+                            <button class="size-btn font-bebas text-[.8rem] tracking-[.05em] border border-c-bdr/[.55] px-[.5rem] py-[.22rem] text-c-glt2">XXL</button>
+                            <button class="add-btn ml-auto w-[24px] h-[24px] bg-c-red flex items-center justify-center text-white text-[1rem] leading-none font-light flex-shrink-0" data-action="add-to-cart" aria-label="Ajouter au panier">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 02 — PAS DE SCÈNE (light) -->
+                <div class="tshirt-card reveal d2 border border-c-bdr/[.5] overflow-hidden" data-product="PAS DE SCÈNE" data-price="29.90">
+                    <div class="relative bg-[#f0e8d3]" style="aspect-ratio:3/3.6">
+                        <svg class="absolute inset-0 w-full h-full opacity-[.06] text-[#241B14]" viewBox="0 0 200 200" fill="currentColor" aria-hidden="true"><path d="M65,8 L5,48 L35,58 L35,188 L165,188 L165,58 L195,48 L135,8 Q118,30 100,30 Q82,30 65,8Z"/></svg>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-5">
+                            <p class="font-bebas text-[1.85rem] leading-[.88] tracking-[.02em] text-[#1a1208]">PAS DE</p>
+                            <p class="font-bebas text-[1.85rem] leading-[.88] tracking-[.02em] text-[#1a1208]">SCÈNE.</p>
+                            <div class="w-8 h-[1.5px] bg-c-red my-[.55rem]"></div>
+                            <p class="font-bebas text-[1.85rem] leading-[.88] tracking-[.02em] text-[#1a1208]">PAS DE</p>
+                            <p class="font-bebas text-[1.85rem] leading-[.88] tracking-[.02em] text-[#1a1208]">LÉGENDE.</p>
+                            <span class="text-[.6rem] tracking-[.2em] uppercase text-[#1a1208]/[.4] mt-4">Les Héros de l'ombre</span>
+                        </div>
+                    </div>
+                    <div class="bg-c-dk2 p-[.85rem_.95rem]">
+                        <div class="flex items-center justify-between mb-[.15rem]">
+                            <h3 class="font-bebas text-[1.05rem] tracking-[.08em]">PAS DE SCÈNE</h3>
+                            <span class="font-bebas text-[1rem] text-c-gold">29,90€</span>
+                        </div>
+                        <p class="text-[.72rem] tracking-[.18em] uppercase text-c-gry mb-[.65rem]">T-Shirt Unisexe</p>
+                        <div class="size-row flex items-center gap-[.28rem] flex-wrap">
+                            <button class="size-btn font-bebas text-[.8rem] tracking-[.05em] border border-c-bdr/[.55] px-[.5rem] py-[.22rem] text-c-glt2">S</button>
+                            <button class="size-btn font-bebas text-[.8rem] tracking-[.05em] border border-c-bdr/[.55] px-[.5rem] py-[.22rem] text-c-glt2">M</button>
+                            <button class="size-btn font-bebas text-[.8rem] tracking-[.05em] border border-c-bdr/[.55] px-[.5rem] py-[.22rem] text-c-glt2">L</button>
+                            <button class="size-btn font-bebas text-[.8rem] tracking-[.05em] border border-c-bdr/[.55] px-[.5rem] py-[.22rem] text-c-glt2">XL</button>
+                            <button class="size-btn font-bebas text-[.8rem] tracking-[.05em] border border-c-bdr/[.55] px-[.5rem] py-[.22rem] text-c-glt2">XXL</button>
+                            <button class="add-btn ml-auto w-[24px] h-[24px] bg-c-red flex items-center justify-center text-white text-[1rem] leading-none font-light flex-shrink-0" data-action="add-to-cart" aria-label="Ajouter au panier">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 03 — DANS L'OMBRE (dark) -->
+                <div class="tshirt-card reveal d3 border border-c-bdr/[.5] overflow-hidden" data-product="DANS L'OMBRE" data-price="29.90">
+                    <div class="relative bg-[#0d0b09]" style="aspect-ratio:3/3.6">
+                        <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&q=50"
+                             alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover opacity-[.16] select-none pointer-events-none">
+                        <svg class="absolute inset-0 w-full h-full opacity-[.05] text-white" viewBox="0 0 200 200" fill="currentColor" aria-hidden="true"><path d="M65,8 L5,48 L35,58 L35,188 L165,188 L165,58 L195,48 L135,8 Q118,30 100,30 Q82,30 65,8Z"/></svg>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+                            <p class="font-bebas text-[1.65rem] leading-[.9] tracking-[.03em] text-white">DANS L'OMBRE,</p>
+                            <p class="font-bebas text-[1.65rem] leading-[.9] tracking-[.03em] text-white">ILS FONT</p>
+                            <p class="font-bebas text-[1.65rem] leading-[.9] tracking-[.03em] text-c-gold">L'HISTOIRE.</p>
+                            <span class="text-[.6rem] tracking-[.28em] uppercase text-white/[.3] mt-4">LA CHAÎNE</span>
+                        </div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/[.55] to-transparent pointer-events-none"></div>
+                    </div>
+                    <div class="bg-c-dk2 p-[.85rem_.95rem]">
+                        <div class="flex items-center justify-between mb-[.15rem]">
+                            <h3 class="font-bebas text-[1.05rem] tracking-[.08em]">DANS L'OMBRE</h3>
+                            <span class="font-bebas text-[1rem] text-c-gold">29,90€</span>
+                        </div>
+                        <p class="text-[.72rem] tracking-[.18em] uppercase text-c-gry mb-[.65rem]">T-Shirt Unisexe</p>
+                        <div class="size-row flex items-center gap-[.28rem] flex-wrap">
+                            <button class="size-btn font-bebas text-[.8rem] tracking-[.05em] border border-c-bdr/[.55] px-[.5rem] py-[.22rem] text-c-glt2">S</button>
+                            <button class="size-btn font-bebas text-[.8rem] tracking-[.05em] border border-c-bdr/[.55] px-[.5rem] py-[.22rem] text-c-glt2">M</button>
+                            <button class="size-btn font-bebas text-[.8rem] tracking-[.05em] border border-c-bdr/[.55] px-[.5rem] py-[.22rem] text-c-glt2">L</button>
+                            <button class="size-btn font-bebas text-[.8rem] tracking-[.05em] border border-c-bdr/[.55] px-[.5rem] py-[.22rem] text-c-glt2">XL</button>
+                            <button class="size-btn font-bebas text-[.8rem] tracking-[.05em] border border-c-bdr/[.55] px-[.5rem] py-[.22rem] text-c-glt2">XXL</button>
+                            <button class="add-btn ml-auto w-[24px] h-[24px] bg-c-red flex items-center justify-center text-white text-[1rem] leading-none font-light flex-shrink-0" data-action="add-to-cart" aria-label="Ajouter au panier">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 04 — PREMIER IMPACT (light) -->
+                <div class="tshirt-card reveal d4 border border-c-bdr/[.5] overflow-hidden" data-product="PREMIER IMPACT" data-price="29.90">
+                    <div class="relative bg-[#f0e8d3]" style="aspect-ratio:3/3.6">
+                        <svg class="absolute inset-0 w-full h-full opacity-[.06] text-[#241B14]" viewBox="0 0 200 200" fill="currentColor" aria-hidden="true"><path d="M65,8 L5,48 L35,58 L35,188 L165,188 L165,58 L195,48 L135,8 Q118,30 100,30 Q82,30 65,8Z"/></svg>
+                        <!-- clapperboard icon hint -->
+                        <svg class="absolute bottom-6 right-5 w-[38px] opacity-[.12] text-[#241B14]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 6h16v2H4V6zm0 5h16v9H4v-9zm2 2v5h12v-5H6zm-2-9h16V2H4v2zm14-2H6v2h12V2zM8 2l-2 2h2l2-2H8zm4 0-2 2h2l2-2h-2z"/></svg>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-5">
+                            <p class="font-bebas text-[1.75rem] leading-[.88] tracking-[.02em] text-[#1a1208]">SECOND RÔLE,</p>
+                            <p class="font-bebas text-[1.75rem] leading-[.88] tracking-[.02em] text-c-red">PREMIER</p>
+                            <p class="font-bebas text-[1.75rem] leading-[.88] tracking-[.02em] text-[#1a1208]">IMPACT.</p>
+                            <span class="text-[.6rem] tracking-[.2em] uppercase text-[#1a1208]/[.4] mt-4">Les Héros de l'ombre</span>
+                        </div>
+                    </div>
+                    <div class="bg-c-dk2 p-[.85rem_.95rem]">
+                        <div class="flex items-center justify-between mb-[.15rem]">
+                            <h3 class="font-bebas text-[1.05rem] tracking-[.08em]">PREMIER IMPACT</h3>
+                            <span class="font-bebas text-[1rem] text-c-gold">29,90€</span>
+                        </div>
+                        <p class="text-[.72rem] tracking-[.18em] uppercase text-c-gry mb-[.65rem]">T-Shirt Unisexe</p>
+                        <div class="size-row flex items-center gap-[.28rem] flex-wrap">
+                            <button class="size-btn font-bebas text-[.8rem] tracking-[.05em] border border-c-bdr/[.55] px-[.5rem] py-[.22rem] text-c-glt2">S</button>
+                            <button class="size-btn font-bebas text-[.8rem] tracking-[.05em] border border-c-bdr/[.55] px-[.5rem] py-[.22rem] text-c-glt2">M</button>
+                            <button class="size-btn font-bebas text-[.8rem] tracking-[.05em] border border-c-bdr/[.55] px-[.5rem] py-[.22rem] text-c-glt2">L</button>
+                            <button class="size-btn font-bebas text-[.8rem] tracking-[.05em] border border-c-bdr/[.55] px-[.5rem] py-[.22rem] text-c-glt2">XL</button>
+                            <button class="size-btn font-bebas text-[.8rem] tracking-[.05em] border border-c-bdr/[.55] px-[.5rem] py-[.22rem] text-c-glt2">XXL</button>
+                            <button class="add-btn ml-auto w-[24px] h-[24px] bg-c-red flex items-center justify-center text-white text-[1rem] leading-none font-light flex-shrink-0" data-action="add-to-cart" aria-label="Ajouter au panier">+</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Barre garanties -->
+            <div class="reveal grid grid-cols-4 gap-4 border-t border-c-bdr/[.4] pt-8 max-[768px]:grid-cols-2 max-[420px]:grid-cols-1">
+                <div class="flex items-start gap-3">
+                    <svg viewBox="0 0 24 24" class="w-5 h-5 flex-shrink-0 text-c-gold mt-[.1rem]" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 0 0-10.026 0 1.106 1.106 0 0 0-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg>
+                    <div>
+                        <p class="font-bebas text-[.95rem] tracking-[.12em] text-c-wht">LIVRAISON OFFERTE</p>
+                        <p class="text-[.75rem] text-c-gry">dès 60€ d'achat</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <svg viewBox="0 0 24 24" class="w-5 h-5 flex-shrink-0 text-c-gold mt-[.1rem]" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"/></svg>
+                    <div>
+                        <p class="font-bebas text-[.95rem] tracking-[.12em] text-c-wht">RETOURS FACILES</p>
+                        <p class="text-[.75rem] text-c-gry">sous 14 jours</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <svg viewBox="0 0 24 24" class="w-5 h-5 flex-shrink-0 text-c-gold mt-[.1rem]" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg>
+                    <div>
+                        <p class="font-bebas text-[.95rem] tracking-[.12em] text-c-wht">PAIEMENT SÉCURISÉ</p>
+                        <p class="text-[.75rem] text-c-gry">100% sécurisé</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3">
+                    <svg viewBox="0 0 24 24" class="w-5 h-5 flex-shrink-0 text-c-gold mt-[.1rem]" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"/></svg>
+                    <div>
+                        <p class="font-bebas text-[.95rem] tracking-[.12em] text-c-wht">PRODUITS ÉTHIQUES</p>
+                        <p class="text-[.75rem] text-c-gry">coton bio &amp; éco-responsable</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ── FAQ ── -->
+    <section class="bg-c-drk text-c-wht px-[clamp(1.5rem,5vw,4rem)] pt-[clamp(3rem,6vw,5rem)] pb-[clamp(2.5rem,5vw,4.5rem)] max-[680px]:px-[1.4rem] max-[680px]:pt-10" id="faq">
+        <div class="max-w-[720px] mx-auto">
+
+            <div class="reveal text-center mb-12">
+                <span class="block text-[.65rem] tracking-[.35em] uppercase text-c-gold mb-3">✦ Vos questions</span>
+                <h2 class="font-sign text-[3.2rem] tracking-[.02em] leading-none">FAQ</h2>
+            </div>
+
+            <div class="space-y-0 divide-y divide-c-bdr/[.6]">
+
+                <div class="faq-item reveal d1 py-[1.1rem]">
+                    <button class="faq-btn w-full flex items-center justify-between gap-6 text-left group" aria-expanded="false">
+                        <span class="faq-q font-bebas text-[1.15rem] tracking-[.06em] text-c-wht/[.88] leading-snug">Sur quoi portent vos analyses ?</span>
+                        <span class="faq-icon flex-shrink-0 w-[26px] h-[26px] rounded-full border border-c-bdr flex items-center justify-center text-c-glt2 text-[1rem] leading-none">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-[.88rem] text-c-gry leading-[1.7] pt-3 pb-1 max-w-[600px]">Chaque épisode se concentre sur un personnage secondaire du cinéma ou des séries — celui qu'on oublie trop vite mais qui fait toute la différence. On décortique son arc, ses répliques, son impact sur le récit.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item reveal d2 py-[1.1rem]">
+                    <button class="faq-btn w-full flex items-center justify-between gap-6 text-left group" aria-expanded="false">
+                        <span class="faq-q font-bebas text-[1.15rem] tracking-[.06em] text-c-wht/[.88] leading-snug">Pourquoi les personnages secondaires ?</span>
+                        <span class="faq-icon flex-shrink-0 w-[26px] h-[26px] rounded-full border border-c-bdr flex items-center justify-center text-c-glt2 text-[1rem] leading-none">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-[.88rem] text-c-gry leading-[1.7] pt-3 pb-1 max-w-[600px]">Parce qu'ils sont le vrai cœur d'un film. Les héros principaux captent toute l'attention, mais ce sont souvent les seconds rôles qui portent l'émotion, l'humour ou la tension. On leur rend enfin justice.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item reveal d3 py-[1.1rem]">
+                    <button class="faq-btn w-full flex items-center justify-between gap-6 text-left group" aria-expanded="false">
+                        <span class="faq-q font-bebas text-[1.15rem] tracking-[.06em] text-c-wht/[.88] leading-snug">À quelle fréquence publiez-vous ?</span>
+                        <span class="faq-icon flex-shrink-0 w-[26px] h-[26px] rounded-full border border-c-bdr flex items-center justify-center text-c-glt2 text-[1rem] leading-none">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-[.88rem] text-c-gry leading-[1.7] pt-3 pb-1 max-w-[600px]">Nous publions régulièrement de nouveaux Shorts YouTube — format court, analyse dense, directement à l'essentiel. Abonnez-vous pour ne rien manquer.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item reveal d4 py-[1.1rem]">
+                    <button class="faq-btn w-full flex items-center justify-between gap-6 text-left group" aria-expanded="false">
+                        <span class="faq-q font-bebas text-[1.15rem] tracking-[.06em] text-c-wht/[.88] leading-snug">Comment suggérer un personnage ?</span>
+                        <span class="faq-icon flex-shrink-0 w-[26px] h-[26px] rounded-full border border-c-bdr flex items-center justify-center text-c-glt2 text-[1rem] leading-none">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="text-[.88rem] text-c-gry leading-[1.7] pt-3 pb-1 max-w-[600px]">Rendez-vous sur notre page <a href="contact.html" class="text-c-gold underline underline-offset-2 hover:text-c-glt transition">Contact</a> et laissez-nous votre suggestion. On lit tout, et les meilleures idées finissent en épisode.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
     <!-- ── CTA YOUTUBE ── -->
     <div class="cta-stripe bg-c-red py-16 px-12 relative overflow-hidden max-[680px]:px-[1.4rem] max-[680px]:py-12">
         <div class="reveal max-w-[860px] mx-auto flex items-center justify-between gap-10 flex-wrap relative z-[1] max-[860px]:flex-col max-[860px]:items-start">
             <div>
-                <span class="block text-[.58rem] tracking-[.35em] uppercase text-white/[.65] mb-3">✦ Rejoindre la communauté</span>
+                <span class="block text-[.74rem] tracking-[.3em] uppercase text-white/[.65] mb-3">✦ Rejoindre la communauté</span>
                 <h2 class="font-sign text-[2.6rem] tracking-[.02em] text-c-wht leading-none mb-[.6rem] max-[680px]:text-[2rem]">Abonnez-vous à la chaîne</h2>
                 <p class="text-[.82rem] text-white/[.75] max-w-[440px] leading-[1.65]">Nouveaux épisodes régulièrement. Personnages oubliés, analyses profondes, cinéma vivant.</p>
             </div>
@@ -641,7 +1091,7 @@
             </div>
 
         </div>
-        <div class="bg-c-drk text-c-wht/[.3] text-center py-[.9rem] text-[.58rem] tracking-[.2em] uppercase">Copyright © 2026 · LES HÉROS DE L'OMBRE — Tous droits réservés</div>
+        <div class="bg-c-drk text-c-wht/[.3] text-center py-[.9rem] text-[.72rem] tracking-[.18em] uppercase">Copyright © 2026 · LES HÉROS DE L'OMBRE — Tous droits réservés</div>
     </footer>
 
 </div><!-- /main-content -->
@@ -651,6 +1101,60 @@
         id="backToTop" aria-label="Retour en haut de page">
     <svg viewBox="0 0 24 24" class="w-4 h-4 fill-c-wht" aria-hidden="true"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>
 </button>
+
+<!-- ── Panier backdrop ── -->
+<div class="cart-backdrop" id="cartBackdrop" aria-hidden="true"></div>
+
+<!-- ── Panier drawer ── -->
+<div class="cart-drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Votre panier">
+
+    <!-- Header -->
+    <div class="flex items-center justify-between px-6 py-[1.1rem] border-b border-[#3a2e24]">
+        <div class="flex items-center gap-[.7rem]">
+            <svg viewBox="0 0 24 24" class="w-[18px] h-[18px] text-[#D89634]" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007Z"/></svg>
+            <span class="font-bebas text-[1rem] tracking-[.28em] text-[#fdf8f2]">VOTRE PANIER</span>
+        </div>
+        <button id="cartClose" class="w-8 h-8 flex items-center justify-center text-[#8a7a6a] hover:text-[#fdf8f2] transition border border-transparent hover:border-[#3a2e24]" aria-label="Fermer le panier">
+            <svg viewBox="0 0 24 24" class="w-[14px] h-[14px]" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" d="M6 18 18 6M6 6l12 12"/></svg>
+        </button>
+    </div>
+
+    <!-- État vide -->
+    <div id="cartEmpty" class="flex-1 flex flex-col items-center justify-center text-center px-8 py-12" style="display:flex">
+        <svg viewBox="0 0 24 24" class="w-12 h-12 text-[#3a2e24] mb-5" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007Z"/></svg>
+        <p class="font-bebas text-[1.3rem] tracking-[.2em] text-[#b5a898] mb-3">PANIER VIDE</p>
+        <p class="text-[.8rem] text-[#8a7a6a] leading-[1.65]">Sélectionnez une taille puis cliquez sur <strong class="text-[#fdf8f2]">+</strong> pour ajouter un article.</p>
+    </div>
+
+    <!-- Liste des articles (injectée par JS) -->
+    <div id="cartItems" class="flex-1 overflow-y-auto px-6" style="display:none; flex-direction:column"></div>
+
+    <!-- Pied de page -->
+    <div id="cartFooter" style="display:none" class="px-6 pb-7 pt-5 border-t border-[#3a2e24] bg-[#1a1208]">
+
+        <!-- Total -->
+        <div class="flex items-baseline justify-between mb-5">
+            <span class="text-[.72rem] tracking-[.25em] uppercase text-[#8a7a6a]">Total estimé</span>
+            <span id="cartTotal" class="font-bebas text-[1.6rem] text-[#D89634] leading-none">0,00 €</span>
+        </div>
+
+        <!-- Message de commande -->
+        <div class="bg-[#211610] border border-[#3a2e24] p-4 mb-4">
+            <p class="font-bebas text-[.85rem] tracking-[.18em] text-[#fdf8f2] mb-1">COMMENT COMMANDER ?</p>
+            <p class="text-[.75rem] text-[#b5a898] leading-[1.65]">
+                Envoyez-nous votre sélection via le formulaire de contact — nous vous répondons sous 48 h avec les modalités de paiement et de livraison.
+            </p>
+        </div>
+
+        <!-- Bouton contact -->
+        <button class="cart-checkout-btn font-bebas tracking-[.25em] text-[1rem] mb-3"
+                onclick="window.location.href='contact.html'">
+            NOUS CONTACTER →
+        </button>
+        <p class="text-[.67rem] tracking-[.08em] text-[#8a7a6a] text-center">Livraison offerte dès 60 € · Retours sous 14 jours</p>
+    </div>
+
+</div>
 
 <!-- Sticky nav logic (indépendant de app.js) -->
 <script>
@@ -686,6 +1190,218 @@
             target.scrollIntoView({behavior:'smooth', block:'start'});
         });
     });
+})();
+</script>
+
+<script>
+/* ── Clapperboard flip ── */
+(function(){
+    'use strict';
+    var isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+    document.querySelectorAll('.crew-scene-wrap').forEach(function(wrap){
+        var card = wrap.querySelector('.crew-card');
+        if (!card) return;
+
+        if (!isTouch) {
+            /* Desktop — hover sur le wrapper fixe : ne re-trigger jamais pendant la rotation */
+            wrap.addEventListener('mouseenter', function(){ card.classList.add('flipped'); });
+            wrap.addEventListener('mouseleave', function(){ card.classList.remove('flipped'); });
+        } else {
+            /* Mobile — tap pour retourner, tap à nouveau pour remettre */
+            wrap.addEventListener('click', function(){
+                var open = card.classList.contains('flipped');
+                document.querySelectorAll('.crew-card.flipped').forEach(function(c){ c.classList.remove('flipped'); });
+                if (!open) card.classList.add('flipped');
+            });
+        }
+    });
+})();
+
+/* ── FAQ accordion ── */
+(function(){
+    'use strict';
+    document.querySelectorAll('.faq-btn').forEach(function(btn){
+        btn.addEventListener('click', function(){
+            var item   = btn.closest('.faq-item');
+            var answer = item.querySelector('.faq-answer');
+            var isOpen = item.classList.contains('active');
+
+            /* Ferme tous les autres */
+            document.querySelectorAll('.faq-item.active').forEach(function(other){
+                other.classList.remove('active');
+                other.querySelector('.faq-answer').classList.remove('open');
+                other.querySelector('.faq-btn').setAttribute('aria-expanded','false');
+            });
+
+            /* Bascule l'actuel */
+            if (!isOpen) {
+                item.classList.add('active');
+                answer.classList.add('open');
+                btn.setAttribute('aria-expanded','true');
+            }
+        });
+    });
+})();
+
+/* ── Boutique — panier complet ── */
+(function(){
+    'use strict';
+
+    /* ─── État ─── */
+    var cart = [];
+
+    /* ─── Refs DOM ─── */
+    var cartDrawer   = document.getElementById('cartDrawer');
+    var cartBackdrop = document.getElementById('cartBackdrop');
+    var cartClose    = document.getElementById('cartClose');
+    var cartToggle   = document.getElementById('cartToggle');
+    var cartLabel    = document.getElementById('cartLabel');
+    var cartBadge    = document.getElementById('cartBadge');
+    var cartItemsEl  = document.getElementById('cartItems');
+    var cartTotalEl  = document.getElementById('cartTotal');
+    var cartEmpty    = document.getElementById('cartEmpty');
+    var cartFooter   = document.getElementById('cartFooter');
+
+    /* ─── Helpers ─── */
+    function fmtPrice(v){ return v.toFixed(2).replace('.',',') + ' €'; }
+    function getTotal(){ return cart.reduce(function(s,i){ return s + i.price * i.qty; }, 0); }
+    function getCount(){ return cart.reduce(function(s,i){ return s + i.qty; }, 0); }
+
+    /* ─── Ouvrir / fermer ─── */
+    function openCart(){
+        cartDrawer.classList.add('open');
+        cartBackdrop.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        cartDrawer.querySelector('button,a').focus();
+    }
+    function closeCart(){
+        cartDrawer.classList.remove('open');
+        cartBackdrop.classList.remove('open');
+        document.body.style.overflow = '';
+        if(cartToggle) cartToggle.focus();
+    }
+
+    if(cartToggle)   cartToggle.addEventListener('click', openCart);
+    if(cartClose)    cartClose.addEventListener('click', closeCart);
+    if(cartBackdrop) cartBackdrop.addEventListener('click', closeCart);
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeCart(); });
+
+    /* ─── Mise à jour widget ─── */
+    function updateWidget(){
+        var count = getCount();
+        var total = getTotal();
+        if(cartLabel) cartLabel.textContent = count + ' article' + (count > 1 ? 's' : '') + ' · ' + fmtPrice(total);
+        if(cartBadge){
+            cartBadge.textContent = count > 99 ? '99+' : count;
+            cartBadge.style.display = count > 0 ? 'flex' : 'none';
+        }
+    }
+
+    /* ─── Rendu des articles ─── */
+    function renderCart(){
+        if(!cartItemsEl) return;
+
+        if(cartEmpty)    cartEmpty.style.display    = cart.length === 0 ? 'flex'  : 'none';
+        if(cartItemsEl)  cartItemsEl.style.display  = cart.length === 0 ? 'none'  : 'flex';
+        if(cartFooter)   cartFooter.style.display   = cart.length === 0 ? 'none'  : 'block';
+
+        var rows = cartItemsEl.querySelectorAll('.cart-item');
+        rows.forEach(function(r){ r.remove(); });
+
+        cart.forEach(function(item, idx){
+            var div = document.createElement('div');
+            div.className = 'cart-item flex gap-4 py-4 border-b border-[#3a2e24]/[.5]';
+            div.innerHTML =
+                '<div class="flex-1 min-w-0">'
+              +   '<p class="font-bebas text-[.95rem] tracking-[.08em] text-[#fdf8f2] leading-tight">' + item.name + '</p>'
+              +   '<p class="text-[.72rem] tracking-[.14em] text-[#8a7a6a] uppercase mt-[.2rem]">T-Shirt Unisexe · Taille ' + item.size + '</p>'
+              +   '<div class="flex items-center gap-[.4rem] mt-[.55rem]">'
+              +     '<button class="cart-qty-btn" data-action="dec" data-idx="' + idx + '" aria-label="Réduire la quantité">−</button>'
+              +     '<span class="font-bebas text-[.92rem] text-[#fdf8f2] w-7 text-center select-none">' + item.qty + '</span>'
+              +     '<button class="cart-qty-btn" data-action="inc" data-idx="' + idx + '" aria-label="Augmenter la quantité">+</button>'
+              +   '</div>'
+              + '</div>'
+              + '<div class="flex flex-col items-end justify-between py-[.1rem]">'
+              +   '<button class="cart-remove" data-action="remove" data-idx="' + idx + '" aria-label="Supprimer">✕</button>'
+              +   '<span class="font-bebas text-[1rem] text-[#D89634]">' + fmtPrice(item.price * item.qty) + '</span>'
+              + '</div>';
+            cartItemsEl.appendChild(div);
+        });
+
+        if(cartTotalEl) cartTotalEl.textContent = fmtPrice(getTotal());
+        updateWidget();
+
+        /* Bind boutons qty / remove */
+        cartItemsEl.querySelectorAll('[data-action]').forEach(function(btn){
+            btn.addEventListener('click', function(){
+                var action = btn.dataset.action;
+                var idx    = parseInt(btn.dataset.idx, 10);
+                if(action === 'inc'){ cart[idx].qty++; }
+                else if(action === 'dec'){
+                    cart[idx].qty--;
+                    if(cart[idx].qty <= 0) cart.splice(idx, 1);
+                }
+                else if(action === 'remove'){ cart.splice(idx, 1); }
+                renderCart();
+            });
+        });
+    }
+
+    /* ─── Sélecteur de taille ─── */
+    document.querySelectorAll('.size-row').forEach(function(row){
+        row.querySelectorAll('.size-btn').forEach(function(btn){
+            btn.addEventListener('click', function(){
+                row.querySelectorAll('.size-btn').forEach(function(b){ b.classList.remove('sel'); });
+                btn.classList.add('sel');
+            });
+        });
+    });
+
+    /* ─── Ajouter au panier ─── */
+    document.querySelectorAll('[data-action="add-to-cart"]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+            var card    = btn.closest('.tshirt-card');
+            if(!card) return;
+            var sizeRow = card.querySelector('.size-row');
+            var selSize = sizeRow ? sizeRow.querySelector('.size-btn.sel') : null;
+
+            if(!selSize){
+                /* Shake + hint rouge sur les boutons de taille */
+                sizeRow.querySelectorAll('.size-btn').forEach(function(sb){
+                    sb.classList.remove('shake');
+                    void sb.offsetWidth; /* reflow pour relancer l'anim */
+                    sb.classList.add('shake');
+                    sb.style.borderColor = '#8B2010';
+                    sb.style.color = '#e8a93f';
+                    setTimeout(function(){ sb.classList.remove('shake'); sb.style.borderColor=''; sb.style.color=''; }, 500);
+                });
+                return;
+            }
+
+            var name  = card.dataset.product;
+            var price = parseFloat(card.dataset.price);
+            var size  = selSize.textContent.trim();
+
+            var existing = null;
+            for(var i = 0; i < cart.length; i++){
+                if(cart[i].name === name && cart[i].size === size){ existing = cart[i]; break; }
+            }
+            if(existing){ existing.qty++; }
+            else { cart.push({name: name, price: price, size: size, qty: 1}); }
+
+            /* Flash du bouton + */
+            btn.textContent = '✓';
+            btn.style.background = '#2a7a3a';
+            setTimeout(function(){ btn.textContent = '+'; btn.style.background = ''; }, 900);
+
+            renderCart();
+            openCart();
+        });
+    });
+
+    /* Init */
+    renderCart();
 })();
 </script>
 
