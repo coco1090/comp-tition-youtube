@@ -228,15 +228,7 @@
        RESPONSIVE OVERHAUL — MOBILE / TABLETTE
     ═══════════════════════════════════════════════ */
 
-    /* Vidéos Shorts : format 9/16 trop haut sur mobile → on le ramène à 3/4 */
-    @media(max-width:680px){
-        .related-card-thumb{aspect-ratio:3/4!important}
-    }
-
-    /* Stats band : padding latéral réduit sur petits écrans */
-    @media(max-width:480px){
-        .stat-item{padding-left:.65rem;padding-right:.65rem}
-    }
+    /* ── RESPONSIVE MOBILE ── */
 
     /* Générique : cacher le hint "Survoler · Révéler" sur mobile/tactile */
     @media(max-width:780px){
@@ -249,19 +241,41 @@
         .hero-nav-right{gap:.6rem}
     }
 
-    /* Boutique : panier en pleine largeur sur mobile */
     @media(max-width:680px){
+        /* About : réduire le gap de grille */
+        .about-main-grid{gap:2rem}
+
+        /* Shorts : wrapper pleine hauteur naturelle */
+        .short-iframe{width:100%;aspect-ratio:3/4;display:block;border:0}
+
+        /* Stats : padding compact */
+        .stat-item{padding-left:.75rem;padding-right:.75rem}
+
+        /* Boutique : panier en pleine largeur */
         #cartToggle{width:100%;justify-content:space-between}
-    }
 
-    /* About section : section header compact sur mobile */
-    @media(max-width:480px){
+        /* About header actions */
         .about-header-actions{gap:.5rem}
+
+        /* CTA */
+        .cta-stripe{padding-top:2.5rem;padding-bottom:2.5rem}
+
+        /* CTA bouton pleine largeur */
+        .cta-btn{width:100%;justify-content:center}
+
+        /* Footer : espacement réduit */
+        .footer-brand{margin-bottom:1.5rem}
     }
 
-    /* CTA section : padding vertical réduit sur petits écrans */
     @media(max-width:480px){
-        .cta-stripe{padding-top:2.5rem;padding-bottom:2.5rem}
+        /* Stats : texte plus compact */
+        .stat-item{padding-left:.5rem;padding-right:.5rem}
+
+        /* Crew grid : 1 colonne sur très petit écran */
+        .crew-grid{grid-template-columns:1fr}
+
+        /* Sections : padding vertical réduit */
+        .section-pt{padding-top:2.5rem}
     }
     </style>
 </head>
@@ -647,7 +661,7 @@
             </div>
         </div>
 
-        <div class="grid [grid-template-columns:210px_1fr_1.1fr] gap-10 max-[1024px]:[grid-template-columns:190px_1fr] max-[680px]:grid-cols-1">
+        <div class="about-main-grid grid [grid-template-columns:210px_1fr_1.1fr] gap-10 max-[1024px]:[grid-template-columns:190px_1fr] max-[680px]:grid-cols-1">
 
             <div class="reveal [aspect-ratio:1/1] bg-[#111] overflow-hidden shadow-[12px_18px_50px_rgba(0,0,0,.25)] relative group max-[680px]:hidden">
                 <img src="PHOTO-2026-05-28-14-46-15%202.jpg"
@@ -752,14 +766,14 @@
         <div class="grid grid-cols-2 gap-[1.2rem] max-w-[600px] mx-auto max-[480px]:grid-cols-1 max-[480px]:gap-[.6rem]">
 
             <div class="related-card reveal d1 block relative">
-                <div class="related-card-thumb [aspect-ratio:9/16] bg-[#1a1a1a] overflow-hidden relative">
+                <div class="related-card-thumb bg-[#1a1a1a] overflow-hidden relative">
                     <iframe
                         src="https://www.youtube.com/embed/XHnOhTAavMA?rel=0&modestbranding=1"
                         title="Making off : Cars — Short Les Héros de l'Ombre"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowfullscreen
                         loading="lazy"
-                        class="absolute inset-0 w-full h-full border-0">
+                        class="short-iframe w-full aspect-[9/16] border-0 block">
                     </iframe>
                 </div>
                 <div class="pt-[.55rem] px-[.1rem]">
@@ -769,14 +783,14 @@
             </div>
 
             <div class="related-card reveal d2 block relative">
-                <div class="related-card-thumb [aspect-ratio:9/16] bg-[#1a1a1a] overflow-hidden relative">
+                <div class="related-card-thumb bg-[#1a1a1a] overflow-hidden relative">
                     <iframe
                         src="https://www.youtube.com/embed/DMopQdbgNws?rel=0&modestbranding=1"
                         title="Micro trottoir : quel est votre personnage préféré ? — Short Les Héros de l'Ombre"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowfullscreen
                         loading="lazy"
-                        class="absolute inset-0 w-full h-full border-0">
+                        class="short-iframe w-full aspect-[9/16] border-0 block">
                     </iframe>
                 </div>
                 <div class="pt-[.55rem] px-[.1rem]">
@@ -972,7 +986,7 @@
                 <h2 class="font-bebas text-[2.6rem] tracking-[.02em] text-c-wht leading-none mb-[.6rem] max-[680px]:text-[2rem]">Abonnez-vous à la chaîne</h2>
                 <p class="text-[.82rem] text-white/[.75] max-w-[440px] leading-[1.65]">Nouveaux épisodes régulièrement. Personnages oubliés, analyses profondes, cinéma vivant.</p>
             </div>
-            <a class="inline-flex items-center gap-[.7rem] flex-shrink-0 bg-c-wht text-c-red font-bebas text-[1.1rem] tracking-[.2em] px-[2.2rem] py-[.9rem] transition hover:bg-c-crm hover:scale-[1.03] whitespace-nowrap max-[860px]:self-start"
+            <a class="cta-btn inline-flex items-center gap-[.7rem] flex-shrink-0 bg-c-wht text-c-red font-bebas text-[1.1rem] tracking-[.2em] px-[2.2rem] py-[.9rem] transition hover:bg-c-crm hover:scale-[1.03] whitespace-nowrap max-[860px]:self-start"
                href="https://www.youtube.com/@LesH%C3%A9rosDelOmbre" target="_blank" rel="noopener noreferrer">
                 <svg viewBox="0 0 24 24" class="w-5 h-5 fill-c-red flex-shrink-0" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg>
                 S'abonner
